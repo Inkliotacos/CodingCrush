@@ -1,0 +1,20 @@
+[
+    {
+        "id":1,
+      "first_name": "Esteban",
+      "last_name": "Miaou",
+      "email": "esteban@mail.com",
+      "birth_date": "01/01/2000",
+      "profile_picture":"/img/profilepic/1.png",
+      "description":"In occaecat aute eiusmod cupidatat consequat aliquip exercitation. Esse quis labore dolor minim in commodo ad do id consequat occaecat et tempor. Do est cupidatat Lorem sit aliquip."
+    },
+    {
+        "id":2,
+      "first_name": "Estedeux",
+      "last_name": "Miaoebtu",
+      "email": "esteban2@mail.com",
+      "birth_date": "02/01/2000",
+      "profile_picture":"/img/profilepic/2.png",
+      "description":"In occaecat aute eiusmod cupidatat consequat aliquip exercitation. Esse quis labore dolor minim in commodo ad do id consequat occaecat et tempor. Do est cupidatat Lorem sit aliquip."
+    }
+  ]
