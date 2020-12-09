@@ -4,7 +4,7 @@
         <div class="col-sm-offset-4 col-sm-4">
     <div class="login-page">
         <form>
-            <h3>Sign In</h3>
+            <h3>Connexion</h3>
 
             <div class="form-group">
                 <label>Email address</label>
@@ -16,7 +16,7 @@
                 <input type="password" class="form-control form-control-lg" />
             </div>
 
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
+            <button type="submit" class="btn btn-dark btn-lg btn-block">Connexion</button>
         </form>
     </div>
     </div>

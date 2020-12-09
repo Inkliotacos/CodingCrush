@@ -10,7 +10,8 @@
           <b-navbar-nav>
             <b-nav-item to="/">Home</b-nav-item>
             <b-nav-item to="/about" >About</b-nav-item>
-            <b-nav-item to="/signin" >Inscription</b-nav-item>
+            <b-nav-item to="/signup" >Inscription</b-nav-item>
+            <b-nav-item to="/login" >login</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
@@ -23,6 +24,7 @@
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Sign Out</b-dropdown-item>
               <router-link class="nav-link pr-3" to="/login">Log in</router-link>
+              <router-link class="nav-link pr-3" to="/signin">sign</router-link>
 
             </b-nav-item-dropdown>
           </b-navbar-nav>

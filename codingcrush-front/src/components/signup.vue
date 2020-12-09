@@ -3,7 +3,7 @@
     <div class="row" style="justify-content: center;">
         <div class="col-sm-offset-4 col-sm-4">
         <form>
-            <h3>Sign Up</h3>
+            <h3>Inscription</h3>
 
             <div class="form-group">
                 <label>Prénom</label>
@@ -20,11 +20,11 @@
                 <input type="password" class="form-control form-control-lg" />
             </div>
 
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Sign Up</button>
+            <button type="submit" class="btn btn-dark btn-lg btn-block">Inscription</button>
 
             <p class="forgot-password text-right">
-                Already registered 
-                <router-link :to="{name: 'login'}">sign in?</router-link>
+                Tu as déjà un compte?
+                <router-link :to="{name: 'login'}">connecte toi !</router-link>
             </p>
         </form>
             </div>
@@ -33,9 +33,9 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {}
-        }
-    }
+export default {
+  data () {
+    return {}
+  }
+}
 </script>
