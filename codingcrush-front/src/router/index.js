@@ -4,8 +4,6 @@ import Home from '../views/Home.vue'
 import login from '../components/login.vue'
 import signup from '../components/signup.vue'
 
-import '../assets/css/main.css'
-
 Vue.use(VueRouter)
 
 const routes = [

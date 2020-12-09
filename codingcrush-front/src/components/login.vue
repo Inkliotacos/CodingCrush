@@ -1,4 +1,7 @@
 <template>
+<div class="container">
+    <div class="row" style="justify-content: center;">
+        <div class="col-sm-offset-4 col-sm-4">
     <div class="login-page">
         <form>
             <h3>Sign In</h3>
@@ -16,12 +19,15 @@
             <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
         </form>
     </div>
+    </div>
+    </div>
+</div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {}
-        }
-    }
+export default {
+  data () {
+    return {}
+  }
+}
 </script>

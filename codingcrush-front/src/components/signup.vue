@@ -1,5 +1,7 @@
 <template>
-    <div class="vue-tempalte">
+    <div class="container">
+    <div class="row" style="justify-content: center;">
+        <div class="col-sm-offset-4 col-sm-4">
         <form>
             <h3>Sign Up</h3>
 
@@ -25,6 +27,8 @@
                 <router-link :to="{name: 'login'}">sign in?</router-link>
             </p>
         </form>
+            </div>
+        </div>
     </div>
 </template>
 
