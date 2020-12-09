@@ -23,9 +23,6 @@
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-              <router-link class="nav-link pr-3" to="/login">Log in</router-link>
-              <router-link class="nav-link pr-3" to="/signin">sign</router-link>
-
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
