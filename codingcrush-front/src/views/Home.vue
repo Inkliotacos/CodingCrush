@@ -1,8 +1,6 @@
-// src/views/Home.vue
-
 <template>
   <div>
-    <h1>Hi {{ username }}</h1>
+    <h1>Bonjour {{ username }} !</h1>
     <p>{{ secretMessage }}</p>
     <input type="button" value="Logout" @click="logout" />
   </div>
@@ -19,6 +17,7 @@ export default {
     }
   },
   async created () {
+    // Si l'utilisateur n'est pas connecté
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push('/login')
     }

@@ -1,5 +1,3 @@
-// src/store.js (Vue CLI 1.x & 2.x) oder src/store/index.js (Vue CLI 3.x or newer)
-
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'

@@ -2,11 +2,38 @@
 
 <template>
   <div>
-    <h1>Login</h1>
-    <input type="text" placeholder="Username" v-model="username" />
-    <input type="text" placeholder="Password" v-model="password" />
-    <input type="button" @click="login" value="Login" />
-    <p v-if="msg">{{ msg }}</p>
+    <b-container>
+      <h1>Se connecter</h1>
+      <b-card bg-variant="light">
+        <b-form>
+          <label class="sr-only" for="login-username">Pseudo</label>
+          <b-input-group prepend="@">
+            <b-form-input
+              id="login-username"
+              placeholder="Pseudo"
+              v-model="username"
+            ></b-form-input>
+          </b-input-group>
+
+          <label class="sr-only" for="login-password">Mot de passe</label>
+          <b-input-group>
+            <b-form-input
+              id="login-password"
+              placeholder="Mot de passe"
+              type="password"
+              v-model="password"
+            ></b-form-input>
+          </b-input-group>
+
+          <b-button variant="primary" @click="login">Se connecter</b-button>
+        </b-form>
+      </b-card>
+      <p>
+        Vous n’avez pas de compte ?
+        <b-link to="/sign-up">Inscrivez-vous</b-link>
+      </p>
+      <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
+    </b-container>
   </div>
 </template>
 <script>
