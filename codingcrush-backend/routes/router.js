@@ -17,7 +17,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
     (err, result) => {
       if (result.length) {
         return res.status(409).send({
-          msg: 'This username is already in use!'
+          msg: 'Ce pseudo est déja utilisé !'
         });
       } else {
         // username is available
@@ -40,7 +40,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
                   });
                 }
                 return res.status(201).send({
-                  msg: 'Registered!'
+                  msg: 'Inscription réussie !'
                 });
               }
             );
@@ -66,7 +66,7 @@ router.post('/login', (req, res, next) => {
 
       if (!result.length) {
         return res.status(401).send({
-          msg: 'Username or password is incorrect!'
+          msg: 'Votre pseudo ou votre mot de passe est incorrect !'
         });
       }
 
@@ -79,7 +79,7 @@ router.post('/login', (req, res, next) => {
           if (bErr) {
             throw bErr;
             return res.status(401).send({
-              msg: 'Username or password is incorrect!'
+              msg: 'Votre pseudo ou votre mot de passe est incorrect !'
             });
           }
 
@@ -97,13 +97,13 @@ router.post('/login', (req, res, next) => {
               `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
             );
             return res.status(200).send({
-              msg: 'Logged in!',
+              msg: 'Connecté !',
               token,
               user: result[0]
             });
           }
           return res.status(401).send({
-            msg: 'Username or password is incorrect!'
+            msg: 'Votre pseudo ou votre mot de passe est incorrect !'
           });
         }
       );

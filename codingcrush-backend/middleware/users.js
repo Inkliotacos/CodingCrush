@@ -4,14 +4,14 @@ module.exports = {
         // pseudo : longueur min. de 3
         if (!req.body.username || req.body.username.length < 3) {
             return res.status(400).send({
-                msg: 'Please enter a username with min. 3 chars'
+                msg: 'Votre pseudo doit contenir au moins 3 caractères'
             });
         }
 
         // mot de passe :  min 6 caractères
         if (!req.body.password || req.body.password.length < 6) {
             return res.status(400).send({
-                msg: 'Please enter a password with min. 6 chars'
+                msg: 'Votre mot de passe doit contenir au moins 6 caractères'
             });
         }
 
@@ -21,7 +21,7 @@ module.exports = {
             req.body.password != req.body.password_repeat
         ) {
             return res.status(400).send({
-                msg: 'Both passwords must match'
+                msg: 'Vos deux mots de passe doivent être identiques'
             });
         }
 
@@ -40,7 +40,7 @@ module.exports = {
             next();
         } catch (err) {
             return res.status(401).send({
-                msg: 'Your session is not valid!'
+                msg: 'Votre session n\'est pas valide !'
             });
         }
     }
