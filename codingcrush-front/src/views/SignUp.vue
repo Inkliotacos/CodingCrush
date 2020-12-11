@@ -34,6 +34,15 @@
             ></b-form-input>
           </b-input-group>
 
+          <label class="sr-only" for="login-profilimage">Nom</label>
+          <b-input-group>
+            <b-form-input
+              id="login-profilimage"
+              placeholder="URL image de profil"
+              v-model="profilimage"
+            ></b-form-input>
+          </b-input-group>
+
           <label class="sr-only" for="login-password">Mot de passe</label>
           <b-input-group>
             <b-form-input
@@ -74,6 +83,7 @@ export default {
       username: '',
       lastname: '',
       birthdate: '',
+      profilimage: '',
       password: '',
       password_repeat: '',
       msg: ''
@@ -86,6 +96,7 @@ export default {
           username: this.username,
           lastname: this.lastname,
           birthdate: this.birthdate,
+          profilimage: this.profilimage,
           password: this.password,
           password_repeat: this.password_repeat
         }

@@ -2,6 +2,7 @@
   <div>
     <h1>Bonjour {{ username }} !</h1>
     <p>{{ secretMessage }}</p>
+    <img :src="urlImage">
     <input type="button" value="Logout" @click="logout" />
   </div>
 </template>
@@ -13,7 +14,8 @@ export default {
   data () {
     return {
       secretMessage: '',
-      username: ''
+      username: '',
+      urlImage: ''
     }
   },
   async created () {
@@ -23,6 +25,7 @@ export default {
     }
 
     this.username = this.$store.getters.getUser.username
+    this.urlImage = this.$store.getters.getUser.profilimageurl
 
     this.secretMessage = await AuthService.getSecretContent()
   },

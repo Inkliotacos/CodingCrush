@@ -4,18 +4,14 @@
       <div class="header row mt-3">
         <div class="col-2">
           <b-avatar
-            src="https://placekitten.com/300/300"
+            :src="urlImage"
             size="auto"
           ></b-avatar>
         </div>
         <b-col>
-          <h1>Esteban</h1>
+          <h1> {{ username }} </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, semper
-            risus ac velit nulla aenean aliquet. Enim convallis sagittis
-            scelerisque gravida rutrum suspendisse nascetur. Morbi gravida risus
-            cursus sapien nam. Euismod at in venenatis odio fringilla
-            condimentum enim.
+            {{ description }}
           </p>
         </b-col>
       </div>
@@ -49,3 +45,38 @@
     </b-container>
   </div>
 </template>
+
+<script>
+import AuthService from '@/services/AuthService.js'
+
+export default {
+  data () {
+    return {
+      secretMessage: '',
+      username: '',
+      lastname: '',
+      urlImage: '',
+      description: ''
+    }
+  },
+  async created () {
+    // Si l'utilisateur n'est pas connecté
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push('/login')
+    }
+
+    this.username = this.$store.getters.getUser.username
+    this.lastname = this.$store.getters.getUser.lastname
+    this.urlImage = this.$store.getters.getUser.profilimageurl
+    this.description = this.$store.getters.getUser.description
+
+    this.secretMessage = await AuthService.getSecretContent()
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/login')
+    }
+  }
+}
+</script>
