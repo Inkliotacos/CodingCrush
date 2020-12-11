@@ -8,6 +8,20 @@ module.exports = {
             });
         }
 
+        // Nom : longueur min. de 3
+        if (!req.body.lastname || req.body.lastname.length < 3) {
+            return res.status(400).send({
+                msg: 'Votre nom doit contenir au moins 3 caractères'
+            });
+        }
+
+        // Date de naissance : Non nulle
+        if (!req.body.birthdate) {
+            return res.status(400).send({
+                msg: 'Veuillez entrer votre date de naissance'
+            });
+        }
+
         // mot de passe :  min 6 caractères
         if (!req.body.password || req.body.password.length < 6) {
             return res.status(400).send({

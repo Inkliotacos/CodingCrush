@@ -15,6 +15,25 @@
             ></b-form-input>
           </b-input-group>
 
+          <label class="sr-only" for="login-lastname">Nom</label>
+          <b-input-group>
+            <b-form-input
+              id="login-lastname"
+              placeholder="Nom"
+              v-model="lastname"
+            ></b-form-input>
+          </b-input-group>
+
+          <label class="sr-only" for="login-birthdate">Date de naissance</label>
+          <b-input-group>
+            <b-form-input
+              id="login-birthdate"
+              placeholder="Année de naissance"
+              type="date"
+              v-model="birthdate"
+            ></b-form-input>
+          </b-input-group>
+
           <label class="sr-only" for="login-password">Mot de passe</label>
           <b-input-group>
             <b-form-input
@@ -53,6 +72,8 @@ export default {
   data () {
     return {
       username: '',
+      lastname: '',
+      birthdate: '',
       password: '',
       password_repeat: '',
       msg: ''
@@ -63,6 +84,8 @@ export default {
       try {
         const credentials = {
           username: this.username,
+          lastname: this.lastname,
+          birthdate: this.birthdate,
           password: this.password,
           password_repeat: this.password_repeat
         }
