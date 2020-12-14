@@ -2,6 +2,15 @@
   <div>
     <b-container>
       <b-form>
+                <label class="sr-only" for="edit-profilimage">Username</label>
+          <b-input-group>
+            <b-form-input
+              id="edit-username"
+              placeholder="Choissi ton nouveau nom"
+              v-model="username"
+            ></b-form-input>
+          </b-input-group>
+
         <label class="sr-only" for="edit-profilimage">Image</label>
           <b-input-group>
             <b-form-input
@@ -34,6 +43,7 @@ import AuthService from '@/services/AuthService.js'
 export default {
   data () {
     return {
+      username: this.$store.getters.getUser.username,
       urlImage: this.$store.getters.getUser.profilimageurl,
       userDescription: this.$store.getters.getUser.descriptionUser,
       msg: ''
@@ -54,11 +64,13 @@ export default {
     async update () {
       try {
         const credentials = {
+          username: this.username,
           profilimage: this.urlImage,
           description: this.userDescription,
           idUser: this.$store.getters.getUser.id
         }
         const response = await AuthService.updateProfile(credentials)
+        console.log(response)
         this.msg = response.msg
 
         // const token = response.token

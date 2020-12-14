@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
+import AuthService from '@/services/AuthService'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -53,6 +54,11 @@ export default new Vuex.Store({
       commit
     }) => {
       commit('RESET', '')
+    },
+    async updateProfile (context, payload) {
+      const result = await AuthService.updateProfile(payload)
+      const user = result.data.user
+      context.commit('SET_USER', user)
     }
   }
 })
