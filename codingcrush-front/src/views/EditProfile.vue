@@ -52,7 +52,7 @@ export default {
     async update () {
       try {
         const credentials = {
-          profilimage: this.profilimage,
+          profilimage: this.urlImage,
           description: this.userDescription,
           idUser: this.$store.getters.getUser.id
         }
