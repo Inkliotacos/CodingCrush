@@ -39,6 +39,7 @@
             <b-form-input
               id="login-profilimage"
               placeholder="URL image de profil"
+              type="url"
               v-model="profilimage"
             ></b-form-input>
           </b-input-group>

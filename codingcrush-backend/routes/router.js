@@ -57,6 +57,23 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
   );
 });
 
+router.post('/update-profile', (req, res, next) => { 
+  db.query(
+    `UPDATE users SET descriptionUser = ${db.escape(req.body.description )}, profilimageurl =  ${db.escape(req.body.profilimage)} WHERE id = ${db.escape(req.body.idUser)} `
+      ),
+      (err, result) => {
+        if (err) {
+          throw err;
+          return res.status(400).send({
+            msg: err
+          });
+        }
+        return res.status(201).send({
+          msg: 'Mise à jour réussie !'
+        });
+      }
+    }
+  )
 
 router.post('/login', (req, res, next) => {
   db.query(

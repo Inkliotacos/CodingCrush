@@ -11,7 +11,7 @@
         <b-col>
           <h1> {{ username }} </h1>
           <p>
-            {{ description }}
+            {{ descriptionUser }}
           </p>
         </b-col>
       </div>
@@ -56,7 +56,7 @@ export default {
       username: '',
       lastname: '',
       urlImage: '',
-      description: ''
+      descriptionUser: ''
     }
   },
   async created () {
@@ -68,7 +68,7 @@ export default {
     this.username = this.$store.getters.getUser.username
     this.lastname = this.$store.getters.getUser.lastname
     this.urlImage = this.$store.getters.getUser.profilimageurl
-    this.description = this.$store.getters.getUser.description
+    this.descriptionUser = this.$store.getters.getUser.descriptionUser
 
     this.secretMessage = await AuthService.getSecretContent()
   },
