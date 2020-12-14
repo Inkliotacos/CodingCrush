@@ -49,6 +49,7 @@
 
 <script>
 import AuthService from '@/services/AuthService.js'
+import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -78,6 +79,12 @@ export default {
       this.$store.dispatch('logout')
       this.$router.push('/login')
     }
+  },
+  computed: {
+    ...mapState({
+      userBis: state => state.user
+    })
   }
 }
+
 </script>
