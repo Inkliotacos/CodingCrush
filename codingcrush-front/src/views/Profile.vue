@@ -13,6 +13,7 @@
           <p>
             {{ descriptionUser }}
           </p>
+          <b-button href="/editprofile">Modifier le profil</b-button>
         </b-col>
       </div>
       <b-row cols-sm="1" cols-md="2">

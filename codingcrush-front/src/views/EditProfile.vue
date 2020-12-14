@@ -23,6 +23,7 @@
 
         <b-button variant="primary" @click="update">Mettre à jour</b-button>
       </b-form>
+      <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
     </b-container>
   </div>
 </template>
@@ -34,7 +35,8 @@ export default {
   data () {
     return {
       urlImage: this.$store.getters.getUser.profilimageurl,
-      userDescription: this.$store.getters.getUser.descriptionUser
+      userDescription: this.$store.getters.getUser.descriptionUser,
+      msg: ''
     }
   },
   async created () {
@@ -59,12 +61,13 @@ export default {
         const response = await AuthService.updateProfile(credentials)
         this.msg = response.msg
 
-        const token = response.token
+        // const token = response.token
         const user = response.user
 
-        this.$store.dispatch('login', { token, user })
+        this.$store.commit('SET_USER', user)
+        // dispatch('login', { token, user })
 
-        this.$router.push('/')
+        this.$router.push('/profile')
       } catch (error) {
         this.msg = error.response.data.msg
       }

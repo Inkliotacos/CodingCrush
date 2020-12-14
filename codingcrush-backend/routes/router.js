@@ -68,9 +68,15 @@ router.post('/update-profile', (req, res, next) => {
             msg: err
           });
         }
-        return res.status(201).send({
-          msg: 'Mise à jour réussie !'
-        });
+        db.query(
+          `SELECT * FROM users WHERE id = ${db.escape(req.body.idUser)};`,
+          (err, result) => {
+          return res.status(200).send({
+            user: result[0],
+            msg: 'Mise à jour réussie !'
+          });
+        }
+        )
       }
     }
   )
