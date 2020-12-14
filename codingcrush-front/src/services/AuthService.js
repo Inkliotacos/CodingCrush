@@ -8,9 +8,9 @@ export default {
       .post(url + 'login/', credentials)
       .then(response => response.data)
   },
-  updateUser (credentials) {
+  getUser (credentials) {
     return axios
-      .post(url + 'update-user/', credentials)
+      .post(url + 'get-user/', credentials)
       .then(response => response.data)
   },
   signUp (credentials) {

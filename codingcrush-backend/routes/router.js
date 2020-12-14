@@ -81,6 +81,20 @@ router.post('/update-profile', (req, res, next) => {
     }
   )
 
+router.post('/get-user', (req, res, next) => { 
+  db.query(
+          `SELECT * FROM users WHERE id = ${db.escape(req.body.idUser)};`,
+          (err, result) => {
+          return res.status(200).send({
+            user: result[0],
+            //msg: 'Mise à jour réussie !'
+          });
+        }
+        )
+      },
+)
+      
+
 router.post('/login', (req, res, next) => {
   db.query(
     `SELECT * FROM users WHERE username = ${db.escape(req.body.username)};`,

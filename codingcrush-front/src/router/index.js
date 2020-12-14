@@ -5,6 +5,7 @@ import SignUp from '../views/SignUp.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
 import EditProfile from '../views/EditProfile.vue'
+import VisitedProfile from '../views/VisitedProfile'
 
 /*
 import login from '../components/login.vue'
@@ -46,6 +47,12 @@ const routes = [
     path: '/editprofile',
     name: 'editProfile',
     component: EditProfile
+  },
+  {
+    path: '/profile/:id',
+    name: 'visitedProfile',
+    component: VisitedProfile,
+    props: { default: true, sidebar: false }
   }
 ]
 
