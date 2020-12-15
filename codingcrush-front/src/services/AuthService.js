@@ -34,7 +34,7 @@ export default {
 
   getUsers (credentials) {
     return axios
-      .get(url + 'get-users/', credentials)
+      .post(url + 'get-users/', credentials)
       .then(response => response.data)
   },
   signUp (credentials) {

@@ -188,13 +188,12 @@ router.post('/login', (req, res, next) => {
   );
 });
 
-router.get('/get-users', (req, res, next) => {
+router.post('/get-users', (req, res, next) => {
   db.query(
-    `SELECT * FROM users`,
+    `SELECT * FROM users ORDER BY last_login DESC LIMIT 4`,
     (err, result) => {  
-    console.log("aaaaa" + result)
     return res.status(200).send({
-      users: result[0],
+      users: result,
       //msg: 'Mise à jour réussie !'
     });
   }
