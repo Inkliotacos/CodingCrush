@@ -13,17 +13,15 @@
                 <b-row cols-sm="5" cols-md="1">
           <h2 class="mt-3">Suggestion de profils</h2>
           <b-list-group>
-            <div class="col">
-            <b-avatar :src="urlImage" size="200px"></b-avatar>
-            <h4>Nom 1</h4>
-            <b-avatar :src="urlImage" size="200px"></b-avatar>
-            <h4>Nom 2</h4>
-            </div>
-             <div class="col">
-            <b-avatar :src="urlImage" size="200px"></b-avatar>
-            <h4>Nom 3</h4>
-            <b-avatar :src="urlImage" size="200px"></b-avatar>
-            <h4>Nom 4</h4>
+            <div class="col" v-for="users in otherUsers" :key="users">
+              <b-avatar :src="users[0].profilimageurl" href='"/profile/" + users[0].id' size="200px"></b-avatar>
+              <h4>{{ users[0].username }}</h4>
+              <b-avatar :src="users[1].profilimageurl" size="200px"></b-avatar>
+              <h4>{{ users[1].username }}</h4>
+              <b-avatar :src="users[2].profilimageurl" size="200px"></b-avatar>
+              <h4>{{ users[2].username }}</h4>
+              <b-avatar :src="users[3].profilimageurl" size="200px"></b-avatar>
+              <h4>{{ users[3].username }}</h4>
             </div>
           </b-list-group>
                 </b-row>
@@ -32,7 +30,6 @@
           <h2 class="mt-3">Derniers quizz</h2>
           <p>“Comment me connaître” par Esteban</p>
           <p>“Ceci est un quiz” par Esteban</p>
-          <p>All users : {{ otherUsers }}</p>
         </div>
       </b-row>
       <p>{{ secretMessage }}</p>
@@ -50,7 +47,7 @@ export default {
       secretMessage: '',
       username: '',
       urlImage: '',
-      otherUsers: ''
+      otherUsers: []
     }
   },
   async created () {
@@ -61,9 +58,9 @@ export default {
 
     this.username = this.$store.getters.getUser.username
     this.urlImage = this.$store.getters.getUser.profilimageurl
-    this.otherUsers = this.$store.getters.getUsers
+    this.otherUsers = await AuthService.getUsers()
 
-    console.log('Users : ' + this.$store.getters.getUsers)
+    console.log(this.otherUsers.users)
 
     this.secretMessage = await AuthService.getSecretContent()
   },
