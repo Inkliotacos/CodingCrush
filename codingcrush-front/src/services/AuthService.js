@@ -32,6 +32,11 @@ export default {
       .then(response => response.data)
   },
 
+  getUsers (credentials) {
+    return axios
+      .get(url + 'get-users/', credentials)
+      .then(response => response.data)
+  },
   signUp (credentials) {
     return axios
       .post(url + 'sign-up/', credentials)

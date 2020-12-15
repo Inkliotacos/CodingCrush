@@ -188,8 +188,17 @@ router.post('/login', (req, res, next) => {
   );
 });
 
-router.get('/users', userMiddleware.isLoggedIn, (req, res, next) => {
-  res.send('This is the secret content. Only logged in users can see that!');
+router.get('/get-users', (req, res, next) => {
+  db.query(
+    `SELECT * FROM users`,
+    (err, result) => {  
+    console.log("aaaaa" + result)
+    return res.status(200).send({
+      users: result[0],
+      //msg: 'Mise à jour réussie !'
+    });
+  }
+  )
 });
 
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {

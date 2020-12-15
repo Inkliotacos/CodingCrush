@@ -15,7 +15,7 @@
           <b-list-group>
             <div class="col">
             <b-avatar :src="urlImage" size="200px"></b-avatar>
-            <h4>{{otherusers}}</h4>
+            <h4>Nom 1</h4>
             <b-avatar :src="urlImage" size="200px"></b-avatar>
             <h4>Nom 2</h4>
             </div>
@@ -32,6 +32,7 @@
           <h2 class="mt-3">Derniers quizz</h2>
           <p>“Comment me connaître” par Esteban</p>
           <p>“Ceci est un quiz” par Esteban</p>
+          <p>All users : {{ otherUsers }}</p>
         </div>
       </b-row>
       <p>{{ secretMessage }}</p>
@@ -48,7 +49,8 @@ export default {
     return {
       secretMessage: '',
       username: '',
-      urlImage: ''
+      urlImage: '',
+      otherUsers: ''
     }
   },
   async created () {
@@ -59,6 +61,9 @@ export default {
 
     this.username = this.$store.getters.getUser.username
     this.urlImage = this.$store.getters.getUser.profilimageurl
+    this.otherUsers = this.$store.getters.getUsers
+
+    console.log('Users : ' + this.$store.getters.getUsers)
 
     this.secretMessage = await AuthService.getSecretContent()
   },
