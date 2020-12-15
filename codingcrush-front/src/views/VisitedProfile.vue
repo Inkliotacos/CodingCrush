@@ -9,7 +9,7 @@
           ></b-avatar>
         </div>
         <b-col>
-          <h1> {{ username }} </h1>
+          <h1> {{ username }} </h1> <b-button> {{ compat }} %</b-button>
           <p>
             {{ descriptionUser }}
           </p>
@@ -48,6 +48,7 @@
 
 <script>
 import AuthService from '@/services/AuthService.js'
+import CompatibilityService from '@/services/CompatibilityService.js'
 
 export default {
   data () {
@@ -58,7 +59,8 @@ export default {
       urlImage: '',
       descriptionUser: '',
       post: null,
-      visitedId: this.$route.params.id
+      visitedId: this.$route.params.id,
+      compat: '?'
     }
   },
   async created () {

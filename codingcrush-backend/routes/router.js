@@ -81,7 +81,7 @@ router.post('/update-profile', (req, res, next) => {
     }
   )
 
-router.post('/get-user', (req, res, next) => { 
+router.get('/get-user', (req, res, next) => { 
   db.query(
           `SELECT * FROM users WHERE id = ${db.escape(req.body.idUser)};`,
           (err, result) => {
