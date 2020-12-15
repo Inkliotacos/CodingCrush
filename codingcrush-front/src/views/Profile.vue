@@ -67,10 +67,10 @@ export default {
       this.$router.push('/login')
     }
 
-    this.username = this.$store.getters.getUser.username
-    this.lastname = this.$store.getters.getUser.lastname
-    this.urlImage = this.$store.getters.getUser.profilimageurl
-    this.descriptionUser = this.$store.getters.getUser.descriptionUser
+    this.username = ''
+    this.lastname = ''
+    this.urlImage = ''
+    this.descriptionUser = ''
 
     this.secretMessage = await AuthService.getSecretContent()
   },

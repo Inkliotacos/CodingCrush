@@ -64,9 +64,9 @@ export default {
     async update () {
       try {
         const credentials = {
-          username: this.username,
-          profilimage: this.urlImage,
-          description: this.userDescription,
+          username: '',
+          profilimage: '',
+          description: '',
           idUser: this.$store.getters.getUser.id
         }
         const response = await AuthService.updateProfile(credentials)
@@ -83,7 +83,29 @@ export default {
       } catch (error) {
         this.msg = error.response.data.msg
       }
+    },
+    async getUser () {
+      try {
+        const credentials = {
+          idUser: this.$store.getters.getUser.id
+        }
+        const response = await AuthService.getUser(credentials)
+
+        this.msg = response.msg
+
+        const user = response.user
+
+        this.username = user.username
+        this.lastname = user.lastname
+        this.urlImage = user.profilimageurl
+        this.userDescription = user.descriptionUser
+      } catch (error) {
+        // this.msg = error.response.data.msg
+      }
     }
+  },
+  mounted () {
+    this.getUser()
   }
 }
 </script>
