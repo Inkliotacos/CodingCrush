@@ -48,7 +48,7 @@
 
 <script>
 import AuthService from '@/services/AuthService.js'
-// import CompatibilityService from '@/services/CompatibilityService.js'
+import CompatibilityService from '@/services/CompatibilityService.js'
 
 export default {
   data () {
@@ -80,7 +80,6 @@ export default {
         const response = await AuthService.getUser(credentials)
 
         this.msg = response.msg
-
         const user = response.user
 
         this.username = user.username
@@ -102,12 +101,33 @@ export default {
         const response = await AuthService.getCompat(credentials)
         // this.msg = response.msg
 
-        const resultCompat = response.value
+        const resultCompat = response.compat
 
+        console.log(response)
         if (resultCompat) {
-          console.log(resultCompat)
+          this.compat = resultCompat.value
         } else {
-          console.log('nan')
+          const credentials1 = {
+            idUser: tabId[0]
+          }
+          const response1 = await AuthService.getUser(credentials1)
+          const user1 = response1.user
+
+          const credentials2 = {
+            idUser: tabId[1]
+          }
+          const response2 = await AuthService.getUser(credentials2)
+          const user2 = response2.user
+
+          const compatibility = CompatibilityService.calculCompat(user1, user2)
+          console.log(compatibility)
+          this.compat = compatibility
+          const compatCredentials = {
+            idFirstUser: tabId[0],
+            idSecondUser: tabId[1],
+            value: compatibility
+          }
+          await AuthService.updateCompat(compatCredentials)
         }
       } catch (error) {
         // this.msg = error.response.data.msg
@@ -116,6 +136,7 @@ export default {
   },
   mounted () {
     this.getUser()
+    this.loadCompat()
   }
 }
 

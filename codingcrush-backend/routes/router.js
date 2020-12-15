@@ -94,6 +94,26 @@ router.post('/get-user', (req, res, next) => {
       },
 );
 
+router.post('/update-compat', (req, res, next) => { 
+  db.query(
+    `INSERT INTO compatibilities (firstUserId, secondUserId, value) VALUES (${db.escape(
+      req.body.idFirstUser
+    )},${db.escape(
+      req.body.idSecondUser
+    )},${db.escape(
+      req.body.value
+    )})`,),
+      (err, result) => {
+        if (err) {
+          throw err;
+          return res.status(400).send({
+            msg: err
+          });
+        }
+      }
+    }
+  );
+
 router.post('/get-compatibility', (req, res, next) => { 
   db.query(
           `SELECT value FROM compatibilities WHERE firstUserId = ${db.escape(req.body.idFirstUser)} AND secondUserId = ${db.escape(req.body.idSecondUser)} ;`,

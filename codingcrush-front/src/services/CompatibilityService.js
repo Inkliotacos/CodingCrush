@@ -376,42 +376,50 @@ function calculSpotify () { // To do
   return 0
 }
 
+function dateFormat (date) {
+  date = date.split('T')[0]
+  date = date.replaceAll('-', '/')
+  return date
+}
+
 export default {
   calculCompat (user1, user2) {
+    dateFormat(user1.birthdate)
+
     var isSpotify = false
     var totalCompat = 0
 
     // Signs
-    var user1Sign = getAstrologicalSign(user1.birth_date)
-    var user2Sign = getAstrologicalSign(user2.birth_date)
+    var user1Sign = getAstrologicalSign(dateFormat(user1.birthdate))
+    var user2Sign = getAstrologicalSign(dateFormat(user2.birthdate))
     var signsresult = signsCompat[user1Sign][user2Sign]
     // console.log("Compat des signes", signsresult,"/5 ( ", user1Sign, " & ", user2Sign," )")
     totalCompat += signsresult * 20 / 5
 
     // First Names
-    var valueUser1 = NumbersToResult(getNameValue(user1.first_name))
-    var valueUser2 = NumbersToResult(getNameValue(user2.first_name))
+    var valueUser1 = NumbersToResult(getNameValue(user1.username))
+    var valueUser2 = NumbersToResult(getNameValue(user2.username))
     var valueTotal = valueUser1 + valueUser2
     var valueResult = NumbersToResult(valueTotal)
     // console.log("Compat des prénoms : ",valueResult,"/9")
     totalCompat += valueResult * 15 / 9
 
     // Last names
-    var lastNameUser1 = NumbersToResult(getNameValue(user1.last_name))
-    var lastNameUser2 = NumbersToResult(getNameValue(user2.last_name))
+    var lastNameUser1 = NumbersToResult(getNameValue(user1.lastname))
+    var lastNameUser2 = NumbersToResult(getNameValue(user2.lastname))
     var lastNameTotal = lastNameUser1 + lastNameUser2
     var lastNameResult = NumbersToResult(lastNameTotal)
     // console.log("Compat des noms : ",lastNameResult,"/9")
     totalCompat += lastNameResult * 10 / 9
 
     // Chineses signs ( but not really )
-    var birthValue = birthYearDiff(user1.birth_date, user2.birth_date)
+    var birthValue = birthYearDiff(dateFormat(user1.birthdate), dateFormat(user2.birthdate))
     // console.log("Compat d'années de naissance", birthValue,"/12")
     totalCompat += birthValue * 20 / 12
 
     // Birth Dates
-    var valueDate1 = NumbersToResult(getDateValue(user1.birth_date))
-    var valueDate2 = NumbersToResult(getDateValue(user2.birth_date))
+    var valueDate1 = NumbersToResult(getDateValue(dateFormat(user1.birthdate)))
+    var valueDate2 = NumbersToResult(getDateValue(dateFormat(user2.birthdate)))
     var totalDateValues = valueDate2 + valueDate1
     var valueDateResult = NumbersToResult(totalDateValues)
     // console.log("Total naissance : ", valueDateResult, "/9")
@@ -426,7 +434,7 @@ export default {
     }
 
     totalCompat = Math.round(totalCompat)
-    console.log('Résultat : ', totalCompat, '% entre ', user1.first_name, ' & ', user2.first_name)
+    console.log('Résultat : ', totalCompat, '% entre ', user1.username, ' & ', user2.username)
     return totalCompat
   }
 }
