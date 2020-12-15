@@ -15,6 +15,13 @@ module.exports = {
             });
         }
 
+        // Prénom : longueur min. de 3
+        if (!req.body.firstname || req.body.firstname.length < 3) {
+            return res.status(400).send({
+                msg: 'Votre nom doit contenir au moins 3 caractères'
+            });
+        }
+
         // Date de naissance : Non nulle
         if (!req.body.birthdate) {
             return res.status(400).send({

@@ -397,8 +397,8 @@ export default {
     totalCompat += signsresult * 20 / 5
 
     // First Names
-    var valueUser1 = NumbersToResult(getNameValue(user1.username))
-    var valueUser2 = NumbersToResult(getNameValue(user2.username))
+    var valueUser1 = NumbersToResult(getNameValue(user1.firstname))
+    var valueUser2 = NumbersToResult(getNameValue(user2.firstname))
     var valueTotal = valueUser1 + valueUser2
     var valueResult = NumbersToResult(valueTotal)
     // console.log("Compat des prénoms : ",valueResult,"/9")
