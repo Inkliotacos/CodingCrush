@@ -9,7 +9,7 @@
           ></b-avatar>
         </div>
         <b-col>
-          <h1> {{ username }} </h1> <b-button> {{ compat }} %</b-button>
+          <h1> {{ username }} </h1> <b-button @click="loadCompat" > {{ compat }} %</b-button>
           <p>
             {{ descriptionUser }}
           </p>
@@ -87,6 +87,28 @@ export default {
         this.lastname = user.lastname
         this.urlImage = user.profilimageurl
         this.descriptionUser = user.descriptionUser
+      } catch (error) {
+        // this.msg = error.response.data.msg
+      }
+    },
+    async loadCompat () {
+      try {
+        var tabId = [this.$route.params.id, this.$store.getters.getUser.id]
+        tabId.sort()
+        const credentials = {
+          idFirstUser: tabId[0],
+          idSecondUser: tabId[1]
+        }
+        const response = await AuthService.getCompat(credentials)
+        // this.msg = response.msg
+
+        const resultCompat = response.value
+
+        if (resultCompat) {
+          console.log(resultCompat)
+        } else {
+          console.log('nan')
+        }
       } catch (error) {
         // this.msg = error.response.data.msg
       }

@@ -14,6 +14,12 @@ export default {
       .then(response => response.data)
   },
 
+  getCompat (credentials) {
+    return axios
+      .post(url + 'get-compatibility/', credentials)
+      .then(response => response.data)
+  },
+
   updateUser (credentials) {
     return axios
       .post(url + 'update-user/', credentials)
