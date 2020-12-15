@@ -48,7 +48,7 @@
 
 <script>
 import AuthService from '@/services/AuthService.js'
-import CompatibilityService from '@/services/CompatibilityService.js'
+// import CompatibilityService from '@/services/CompatibilityService.js'
 
 export default {
   data () {

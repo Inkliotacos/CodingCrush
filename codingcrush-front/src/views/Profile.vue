@@ -78,7 +78,29 @@ export default {
     logout () {
       this.$store.dispatch('logout')
       this.$router.push('/login')
+    },
+    async getUser () {
+      try {
+        const credentials = {
+          idUser: this.$store.getters.getUser.id
+        }
+        const response = await AuthService.getUser(credentials)
+
+        this.msg = response.msg
+
+        const user = response.user
+
+        this.username = user.username
+        this.lastname = user.lastname
+        this.urlImage = user.profilimageurl
+        this.descriptionUser = user.descriptionUser
+      } catch (error) {
+        // this.msg = error.response.data.msg
+      }
     }
+  },
+  mounted () {
+    this.getUser()
   },
   computed: {
     ...mapState({
