@@ -9,7 +9,7 @@
           ></b-avatar>
         </div>
         <b-col>
-          <h1> {{ username }} </h1> <b-button @click="loadCompat" > {{ compat }} %</b-button>
+          <h1> {{ username }} </h1> <b-icon-type-h2> {{ compat }} %</b-icon-type-h2>
           <p>
             {{ descriptionUser }}
           </p>
