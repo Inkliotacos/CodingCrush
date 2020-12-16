@@ -69,7 +69,6 @@ export default {
           description: this.userDescription,
           idUser: this.$store.getters.getUser.id
         }
-        console.log('eeee')
         this.$router.push('/profile')
 
         const response = await AuthService.updateProfile(credentials)
