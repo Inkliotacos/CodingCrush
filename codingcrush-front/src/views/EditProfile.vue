@@ -69,8 +69,11 @@ export default {
           description: this.userDescription,
           idUser: this.$store.getters.getUser.id
         }
+        console.log('eeee')
+        this.$router.push('/profile')
+
         const response = await AuthService.updateProfile(credentials)
-        console.log(response)
+
         this.msg = response.msg
 
         // const token = response.token
@@ -78,8 +81,6 @@ export default {
 
         this.$store.commit('SET_USER', user)
         // dispatch('login', { token, user })
-
-        this.$router.push('/profile')
       } catch (error) {
         this.msg = error.response.data.msg
       }
