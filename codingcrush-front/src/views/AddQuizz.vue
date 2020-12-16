@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container>
-    <b-card style="max-width: 20rem" class="mb-2">
+    <b-card style="max-width: 50rem; margin-top: 10%" class="mx-auto">
       <b-col sm="12" align-self="center">
         <b-form-input placeholder="Question" v-model="questions.name"></b-form-input>
       </b-col>
@@ -51,7 +51,9 @@
       </b-col>
     </b-card>
       <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
-      <b-button @click="createQuestion">Créer la question</b-button>
+      <div class="text-center">
+      <b-button style="margin-top: 2%" @click="createQuestion">Créer la question</b-button>
+      </div>
     </b-container>
   </div>
 </template>

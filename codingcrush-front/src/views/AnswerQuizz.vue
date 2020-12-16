@@ -1,19 +1,21 @@
 <template>
   <div>
     <b-container>
-      <b-card style="max-width: 20rem" class="mb-2">
-        <h2 class="mt-3">{{ question }}</h2>
+      <b-card style="max-width: 30rem; margin-top: 10%" class="mx-auto">
+        <h2 class="mt-3 card-header">{{ question }}</h2>
         <b-form-group>
       <b-form-radio-group v-model="selected" stacked>
-        <b-form-radio :value="incorrectAnswer1" >{{incorrectAnswer1}}</b-form-radio>
-        <b-form-radio :value="incorrectAnswer3">{{incorrectAnswer3}}</b-form-radio>
-        <b-form-radio :value="correctAnswer">{{correctAnswer}}</b-form-radio>
-        <b-form-radio :value="incorrectAnswer2">{{incorrectAnswer2}}</b-form-radio>
+        <li class="list-group-item"><b-form-radio :value="incorrectAnswer1" >{{incorrectAnswer1}}</b-form-radio></li>
+        <li class="list-group-item"><b-form-radio :value="incorrectAnswer3">{{incorrectAnswer3}}</b-form-radio></li>
+        <li class="list-group-item"><b-form-radio :value="correctAnswer">{{correctAnswer}}</b-form-radio></li>
+        <li class="list-group-item"><b-form-radio :value="incorrectAnswer2">{{incorrectAnswer2}}</b-form-radio></li>
       </b-form-radio-group>
         </b-form-group>
+         <div class="text-center">
         <b-button @click="answerQuizz">Valider</b-button>
-        <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
+         </div>
       </b-card>
+      <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
     </b-container>
   </div>
 </template>
