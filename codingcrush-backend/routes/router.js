@@ -63,7 +63,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
 
 router.post('/update-profile', (req, res, next) => { 
   db.query(
-    `UPDATE users SET descriptionUser = ${db.escape(req.body.description )}, profilimageurl =  ${db.escape(req.body.profilimage)} WHERE id = ${db.escape(req.body.idUser)} `
+    `UPDATE users SET descriptionUser = ${db.escape(req.body.description )}, profilimageurl =  ${db.escape(req.body.profilimage)}, facebooklink = ${db.escape(req.body.facebookLink )}, instagramlink = ${db.escape(req.body.instagramLink )}, twitterlink = ${db.escape(req.body.twitterLink )}, steamlink = ${db.escape(req.body.steamLink )} WHERE id = ${db.escape(req.body.idUser)} `
       ),
       (err, result) => {
         if (err) {

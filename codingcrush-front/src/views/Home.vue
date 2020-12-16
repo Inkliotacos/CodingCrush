@@ -179,8 +179,6 @@ export default {
     this.lastQuestions = await AuthService.getQuestions()
     this.allUsers = await AuthService.getAllUsers()
 
-    console.log(this.lastQuestions)
-
     this.secretMessage = await AuthService.getSecretContent()
   },
   computed: {

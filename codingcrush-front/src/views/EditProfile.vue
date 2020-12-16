@@ -30,6 +30,42 @@
             > {{ userDescription }} </b-textarea>
           </b-input-group>
 
+          <label class="sr-only" for="edit-facebookLink">Lien Facebook</label>
+          <b-input-group>
+            <b-textarea
+              id="edit-facebookLink"
+              placeholder="Lien facebook"
+              v-model="facebookLink"
+            > {{ facebookLink }} </b-textarea>
+          </b-input-group>
+
+          <label class="sr-only" for="edit-instagramLink">Lien Instagram</label>
+          <b-input-group>
+            <b-textarea
+              id="edit-instagramLink"
+              placeholder="Lien Instagram"
+              v-model="instagramLink"
+            > {{ instagramLink }} </b-textarea>
+          </b-input-group>
+
+          <label class="sr-only" for="edit-twitterLink">Lien Twitter</label>
+          <b-input-group>
+            <b-textarea
+              id="edit-twitterLink"
+              placeholder="Lien Twitter"
+              v-model="twitterLink"
+            > {{ twitterLink }} </b-textarea>
+          </b-input-group>
+
+          <label class="sr-only" for="edit-steamLink">Lien Steam</label>
+          <b-input-group>
+            <b-textarea
+              id="edit-steamLink"
+              placeholder="Lien Steam"
+              v-model="steamLink"
+            > {{ steamLink }} </b-textarea>
+          </b-input-group>
+
         <b-button variant="primary" @click="update">Mettre à jour</b-button>
       </b-form>
       <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
@@ -46,7 +82,11 @@ export default {
       username: this.$store.getters.getUser.username,
       urlImage: this.$store.getters.getUser.profilimageurl,
       userDescription: this.$store.getters.getUser.descriptionUser,
-      msg: ''
+      msg: '',
+      facebookLink: '',
+      instagramLink: '',
+      twitterLink: '',
+      steamLink: ''
     }
   },
   async created () {
@@ -67,7 +107,11 @@ export default {
           username: this.username,
           profilimage: this.urlImage,
           description: this.userDescription,
-          idUser: this.$store.getters.getUser.id
+          idUser: this.$store.getters.getUser.id,
+          facebookLink: this.facebookLink,
+          instagramLink: this.instagramLink,
+          twitterLink: this.twitterLink,
+          steamLink: this.steamLink
         }
         this.$router.push('/profile')
 
@@ -99,6 +143,10 @@ export default {
         this.lastname = user.lastname
         this.urlImage = user.profilimageurl
         this.userDescription = user.descriptionUser
+        this.facebookLink = user.facebooklink
+        this.instagramLink = user.instagramlink
+        this.twitterLink = user.twitterlink
+        this.steamLink = user.steamlink
       } catch (error) {
         // this.msg = error.response.data.msg
       }

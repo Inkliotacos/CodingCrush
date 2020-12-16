@@ -13,6 +13,7 @@
           <p>
             {{ descriptionUser }}
           </p>
+            <b-icon icon="facebook"></b-icon>
         </b-col>
       </div>
       <b-row cols-sm="1" cols-md="2">
@@ -60,7 +61,11 @@ export default {
       descriptionUser: '',
       post: null,
       visitedId: this.$route.params.id,
-      compat: '?'
+      compat: '?',
+      facebookLink: '',
+      instagramLink: '',
+      twitterLink: '',
+      steamLink: ''
     }
   },
   async created () {
@@ -85,6 +90,11 @@ export default {
         this.username = user.username
         this.lastname = user.lastname
         this.urlImage = user.profilimageurl
+        this.descriptionUser = user.descriptionUser
+        this.facebookLink = user.facebooklink
+        this.instagramLink = user.instagramlink
+        this.twitterLink = user.twitterlink
+        this.steamLink = user.steamlink
         this.descriptionUser = user.descriptionUser
       } catch (error) {
         // this.msg = error.response.data.msg
