@@ -50,6 +50,7 @@
         </b-input-group>
       </b-col>
     </b-card>
+      <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
       <b-button @click="createQuestion">Créer la question</b-button>
     </b-container>
   </div>
@@ -62,7 +63,8 @@ export default {
   data () {
     return {
       count: 1,
-      questions: {}
+      questions: {},
+      msg: ''
     }
   },
   async created () {
@@ -82,9 +84,10 @@ export default {
           incorrectAnswer3: this.questions.incorrectAnswer3,
           creatorid: this.$store.getters.getUser.id
         }
-        this.$router.push('/profile')
 
-        await AuthService.createQuestion(credentials)
+        const response = await AuthService.createQuestion(credentials)
+        console.log(this.msg = response.msg)
+        this.$router.push('/profile')
       } catch (error) {
         this.msg = error.response.data.msg
       }

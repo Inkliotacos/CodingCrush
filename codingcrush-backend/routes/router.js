@@ -225,7 +225,7 @@ router.post('/add-quizz', (req, res, next) => {
   );
 });
 
-router.post('/add-question', (req, res, next) => {
+router.post('/add-question', quizzMiddleware.validateCreateQuizz, (req, res, next) => {
   db.query(
     `INSERT INTO littlequizz (creatorid, question, creationdate, correctanswer, incorrectanswer1, incorrectanswer2, incorrectanswer3) VALUES (${db.escape(
         req.body.creatorid
@@ -242,7 +242,7 @@ router.post('/add-question', (req, res, next) => {
       )} )`,
     (err, result) => {
       if (err) {
-        throw err;
+        // throw err;
         return res.status(400).send({
           msg: err
         });
