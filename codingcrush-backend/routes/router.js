@@ -202,6 +202,18 @@ router.post('/get-users', (req, res, next) => {
   )
 });
 
+router.post('/get-all-users', (req, res, next) => {
+  db.query(
+    `SELECT username, id FROM users ORDER BY username ASC`,
+    (err, result) => {  
+    return res.status(200).send({
+      users: result,
+      //msg: 'Mise à jour réussie !'
+    });
+  }
+  )
+});
+
 router.post('/add-quizz', (req, res, next) => {
   db.query(
     `INSERT INTO quizz (name, creatorid, creationdate, numberquestions) VALUES (${db.escape(

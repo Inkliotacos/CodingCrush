@@ -9,9 +9,31 @@
               ><b-icon-search></b-icon-search
             ></span>
           </b-input-group-prepend>
-          <b-form-input size="m" placeholder="Rechercher un crush">
+          <b-form-input
+            size="m"
+            @focus="showOptions()"
+            @blur="optionsNotShow()"
+            class="dropdown-input"
+            type="text"
+            v-model="searchQuery"
+            placeholder="Rechercher un crush"
+          >
           </b-form-input>
         </b-input-group>
+        <div class="dropdown-content" v-show="optionsShown">
+          <table v-if="allUsers.length" class="table">
+            <tbody>
+              <tr class="dropdown-item" v-for="item in resultQuery" :key="item">
+                <a
+                  class="list-item text-secondary"
+                  v-bind:href="'/profile/' + item.id"
+                  target="_blank"
+                  >{{ item.username }}</a
+                >
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </b-col>
       <b-row cols-sm="5" cols-md="2">
         <b-col cols="12">
@@ -94,11 +116,31 @@
         <b-col cols="6">
           <h2 class="mt-3">Derniers quizz</h2>
           <b-col v-for="questions in lastQuestions" :key="questions">
-            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[0].id">{{ questions[0].question }}</a>
-            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[1].id">{{ questions[1].question }}</a>
-            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[2].id">{{ questions[2].question }}</a>
-            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[3].id">{{ questions[3].question }}</a>
-            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[4].id">{{ questions[4].question }}</a>
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[0].id"
+              >{{ questions[0].question }}</a
+            >
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[1].id"
+              >{{ questions[1].question }}</a
+            >
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[2].id"
+              >{{ questions[2].question }}</a
+            >
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[3].id"
+              >{{ questions[3].question }}</a
+            >
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[4].id"
+              >{{ questions[4].question }}</a
+            >
           </b-col>
         </b-col>
       </b-row>
@@ -118,7 +160,10 @@ export default {
       urlImage: '',
       id: '',
       otherUsers: [],
-      lastQuestions: []
+      lastQuestions: [],
+      allUsers: [],
+      searchQuery: null,
+      optionsShown: false
     }
   },
   async created () {
@@ -132,10 +177,51 @@ export default {
     this.id = this.$store.getters.getUser.id
     this.otherUsers = await AuthService.getUsers()
     this.lastQuestions = await AuthService.getQuestions()
-
-    console.log(this.lastQuestions)
+    this.allUsers = await AuthService.getAllUsers()
 
     this.secretMessage = await AuthService.getSecretContent()
+  },
+  computed: {
+    resultQuery () {
+      if (this.searchQuery) {
+        return this.allUsers.filter((item) => {
+          return this.searchQuery
+            .toLowerCase()
+            .split(' ')
+            .every((v) => item.username.toLowerCase().includes(v))
+        })
+      } else {
+        return this.allUsers
+      }
+    }
+  },
+  methods: {
+    showOptions () {
+      if (!this.disabled) {
+        this.optionsShown = true
+      }
+    },
+    optionsNotShow () {
+      this.optionsShown = false
+    }
   }
 }
 </script>
+
+<style scoped>
+.dropdown-content {
+  position: absolute;
+  background-color: #fff;
+  min-width: 238px;
+  max-width: 238px;
+  max-height: 248px;
+  border: 1px solid #e7ecf5;
+  box-shadow: 0px -8px 34px 0px rgba(0, 0, 0, 0.05);
+  overflow: auto;
+  z-index: 1;
+  right: 15px;
+}
+.dropdown:hover .dropdowncontent {
+  display: block;
+}
+</style>

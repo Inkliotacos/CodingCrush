@@ -14,6 +14,12 @@ export default {
       .then(response => response.data)
   },
 
+  getAllUsers (credentials) {
+    return axios
+      .post(url + 'get-all-users/', credentials)
+      .then(response => response.data.users)
+  },
+
   updateCompat (credentials) {
     return axios
       .post(url + 'update-compat/', credentials)
