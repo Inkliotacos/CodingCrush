@@ -227,12 +227,18 @@ router.post('/add-quizz', (req, res, next) => {
 
 router.post('/add-question', (req, res, next) => {
   db.query(
-    `INSERT INTO quizz (quizid, question, correctanswer, incorrectanswer1, incorrectanswer2, incorrectanswer3) VALUES (${db.escape(
-        req.body.quizzname
-      )},${db.escape(
+    `INSERT INTO littlequizz (creatorid, question, creationdate, correctanswer, incorrectanswer1, incorrectanswer2, incorrectanswer3) VALUES (${db.escape(
         req.body.creatorid
+      )},${db.escape(
+        req.body.question
+      )}, now(), ${db.escape(
+        req.body.correctAnswer
       )}, ${db.escape(
-        req.body.numberquestions
+        req.body.incorrectAnswer1
+      )}, ${db.escape(
+        req.body.incorrectAnswer2
+      )}, ${db.escape(
+        req.body.incorrectAnswer3
       )} )`,
     (err, result) => {
       if (err) {

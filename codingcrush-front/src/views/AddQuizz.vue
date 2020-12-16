@@ -1,32 +1,69 @@
 <template>
   <div>
     <b-container>
-      <b-col sm="4" align-self="center">
-        <b-form-input placeholder="Nom du quiz" v-model="namequizz"></b-form-input>
+    <b-card style="max-width: 20rem" class="mb-2">
+      <b-col sm="12" align-self="center">
+        <b-form-input placeholder="Question" v-model="questions.name"></b-form-input>
       </b-col>
-      <div v-for="index in count" :key="index">
-        <AddQuestion v-bind:countQ='index' v-on:inputChange="updateQuestions"/>
-      </div>
+        <b-col sm="12">
+        <b-input-group>
+          <b-input-group-prepend>
+            <span class="input-group-text"
+              ><b-icon-check2 class="text-success"></b-icon-check2
+            ></span>
+          </b-input-group-prepend>
+          <b-form-input placeholder="Réponse correcte" v-model="questions.correctAnswer">
+          </b-form-input>
+        </b-input-group>
+      </b-col>
+      <b-col sm="12">
+        <b-input-group>
+          <b-input-group-prepend>
+            <span class="input-group-text"
+              ><b-icon-x class="text-danger"></b-icon-x
+            ></span>
+          </b-input-group-prepend>
+          <b-form-input placeholder="Réponse incorrecte" v-model="questions.incorrectAnswer1">
+          </b-form-input>
+        </b-input-group>
+      </b-col>
+      <b-col sm="12">
+        <b-input-group>
+          <b-input-group-prepend>
+            <span class="input-group-text"
+              ><b-icon-x class="text-danger"></b-icon-x
+            ></span>
+          </b-input-group-prepend>
+          <b-form-input placeholder="Réponse incorrecte" v-model="questions.incorrectAnswer2">
+          </b-form-input>
+        </b-input-group>
+      </b-col>
+      <b-col sm="12">
+        <b-input-group>
+          <b-input-group-prepend>
+            <span class="input-group-text"
+              ><b-icon-x class="text-danger"></b-icon-x
+            ></span>
+          </b-input-group-prepend>
+          <b-form-input placeholder="Réponse incorrecte" v-model="questions.incorrectAnswer3">
+          </b-form-input>
+        </b-input-group>
+      </b-col>
+    </b-card>
       <p>{{ questions }}</p>
-      <b-button v-on:click="addComponent">Ajouter une question</b-button>
-      <b-button v-on:click="removeComponent"
-        >Retirer la dernière question</b-button
-      >
-      <b-button v-on:click="create(); passQuestion()">Créer le quizz</b-button>
+      <b-button @click="createQuestion">Créer la question</b-button>
     </b-container>
   </div>
 </template>
 
 <script>
-import AddQuestion from '../components/AddQuestion'
 import AuthService from '@/services/AuthService.js'
 
 export default {
   data () {
     return {
       count: 1,
-      namequizz: '',
-      questions: []
+      questions: {}
     }
   },
   async created () {
@@ -36,10 +73,24 @@ export default {
     }
   },
   methods: {
-    updateQuestions (questionName, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3) {
-      this.questions.push(questionName, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3)
-    },
-    async create () {
+    async createQuestion () {
+      try {
+        const credentials = {
+          question: this.questions.name,
+          correctAnswer: this.questions.correctAnswer,
+          incorrectAnswer1: this.questions.incorrectAnswer1,
+          incorrectAnswer2: this.questions.incorrectAnswer2,
+          incorrectAnswer3: this.questions.incorrectAnswer3,
+          creatorid: this.$store.getters.getUser.id
+        }
+        // this.$router.push('/profile')
+
+        await AuthService.createQuestion(credentials)
+      } catch (error) {
+        this.msg = error.response.data.msg
+      }
+    }
+    /* async create () {
       try {
         const credentials = {
           quizzname: this.namequizz,
@@ -53,16 +104,12 @@ export default {
         this.msg = error.response.data.msg
       }
     },
-
     addComponent () {
       this.count++
     },
     removeComponent () {
       this.count--
-    }
-  },
-  components: {
-    AddQuestion
+    } */
   }
 }
 </script>
