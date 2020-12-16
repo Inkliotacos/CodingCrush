@@ -8,6 +8,7 @@ import EditProfile from '../views/EditProfile.vue'
 import VisitedProfile from '../views/VisitedProfile'
 import AddQuizz from '../views/AddQuizz'
 import AnswerQuizz from '../views/AnswerQuizz'
+import TestMail from '../views/TestMail'
 
 /*
 import login from '../components/login.vue'
@@ -66,6 +67,11 @@ const routes = [
     name: 'answerQuizz',
     component: AnswerQuizz,
     props: { default: true, sidebar: false }
+  },
+  {
+    path: '/TestMail',
+    name: 'TestMail',
+    component: TestMail
   }
 ]
 
