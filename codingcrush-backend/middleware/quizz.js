@@ -2,7 +2,7 @@ module.exports = {
     /* vérifie la validité d'une inscription  */ 
     validateCreateQuizz: (req, res, next) => {
         // Question : longueur min. de 5
-        if (!req.body.question || req.body.question < 3) {
+        if (!req.body.question || req.body.question.length < 3) {
             return res.status(400).send({
                 msg: 'Votre question doit contenir au moins 5 caractères'
             });
