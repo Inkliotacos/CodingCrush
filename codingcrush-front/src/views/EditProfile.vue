@@ -64,9 +64,9 @@ export default {
     async update () {
       try {
         const credentials = {
-          username: '',
-          profilimage: '',
-          description: '',
+          username: this.username,
+          profilimage: this.urlImage,
+          description: this.userDescription,
           idUser: this.$store.getters.getUser.id
         }
         const response = await AuthService.updateProfile(credentials)

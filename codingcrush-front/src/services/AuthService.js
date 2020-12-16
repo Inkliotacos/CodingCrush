@@ -26,11 +26,13 @@ export default {
       .then(response => response.data)
   },
 
+  /*
   updateUser (credentials) {
     return axios
       .post(url + 'update-user/', credentials)
       .then(response => response.data)
   },
+*/
 
   getUsers (credentials) {
     return axios
