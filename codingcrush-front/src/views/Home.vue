@@ -2,7 +2,7 @@
   <div>
     <b-container>
       <h1 class="text-center">Bonjour {{ username }} !</h1>
-      <b-col sm="3">
+      <b-col sm="4">
         <b-input-group>
           <b-input-group-prepend>
             <span class="input-group-text"
@@ -20,35 +20,69 @@
             <b-list-group>
               <div class="col" v-for="users in otherUsers" :key="users">
                 <b-row class="text-center"
-                  ><b-col
+                  ><b-col v-if="id !== users[0].id"
                     ><b-avatar
                       :src="users[0].profilimageurl"
                       :href="'/profile/' + users[0].id"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[0].username }}</h4></b-col
-                  ><b-col>
+                  >
+                  <b-col v-else>
+                    <b-avatar
+                      :src="users[0].profilimageurl"
+                      :href="/profile/"
+                      size="150px"
+                    ></b-avatar>
+                    <h4>{{ users[0].username }}</h4></b-col
+                  >
+                  <b-col v-if="id !== users[1].id"
+                    ><b-avatar
+                      :src="users[1].profilimageurl"
+                      :href="'/profile/' + users[1].id"
+                      size="150px"
+                    ></b-avatar>
+                    <h4>{{ users[1].username }}</h4></b-col
+                  >
+                  <b-col v-else>
                     <b-avatar
                       :src="users[1].profilimageurl"
+                      :href="/profile/"
                       size="150px"
-                      :href="'/profile/' + users[1].id"
                     ></b-avatar>
                     <h4>{{ users[1].username }}</h4></b-col
                   >
                 </b-row>
                 <b-row class="text-center">
-                  <b-col
+                  <b-col v-if="id != users[2].id"
                     ><b-avatar
                       :src="users[2].profilimageurl"
-                      size="150px"
                       :href="'/profile/' + users[2].id"
+                      size="150px"
                     ></b-avatar>
                     <h4>{{ users[2].username }}</h4></b-col
-                  ><b-col>
+                  >
+                  <b-col v-else>
+                    <b-avatar
+                      :src="users[2].profilimageurl"
+                      :href="/profile/"
+                      size="150px"
+                    ></b-avatar>
+                    <h4>{{ users[2].username }}</h4></b-col
+                  >
+                  <b-col v-if="id != users[3].id"
+                    ><b-avatar
+                      :src="users[3].profilimageurl"
+                      :href="'/profile/' + users[3].id"
+                      size="150px"
+                    ></b-avatar>
+                    <h4>{{ users[3].username }}</h4></b-col
+                  >
+                  <b-col v-else>
                     <b-avatar
                       :src="users[3].profilimageurl"
+                      :href="/profile/"
                       size="150px"
-                      :href="'/profile/' + users[3].id"
                     ></b-avatar>
                     <h4>{{ users[3].username }}</h4></b-col
                   ></b-row
@@ -78,6 +112,7 @@ export default {
       secretMessage: '',
       username: '',
       urlImage: '',
+      id: '',
       otherUsers: []
     }
   },
@@ -89,6 +124,7 @@ export default {
 
     this.username = this.$store.getters.getUser.username
     this.urlImage = this.$store.getters.getUser.profilimageurl
+    this.id = this.$store.getters.getUser.id
     this.otherUsers = await AuthService.getUsers()
 
     console.log(this.otherUsers.users)
