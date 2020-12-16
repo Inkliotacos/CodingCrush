@@ -15,6 +15,15 @@
             ></b-form-input>
           </b-input-group>
 
+          <label class="sr-only" for="login-firstname">Nom</label>
+          <b-input-group>
+            <b-form-input
+              id="login-firstname"
+              placeholder="Prénom"
+              v-model="firstname"
+            ></b-form-input>
+          </b-input-group>
+
           <label class="sr-only" for="login-lastname">Nom</label>
           <b-input-group>
             <b-form-input
@@ -82,6 +91,7 @@ export default {
   data () {
     return {
       username: '',
+      firstname: '',
       lastname: '',
       birthdate: '',
       profilimage: '',
@@ -95,6 +105,7 @@ export default {
       try {
         const credentials = {
           username: this.username,
+          firstname: this.firstname,
           lastname: this.lastname,
           birthdate: this.birthdate,
           profilimage: this.profilimage,

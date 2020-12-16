@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'http://localhost:8080/api/'
+const url = 'http://localhost:3000/api/'
 
 export default {
   login (credentials) {
@@ -10,8 +10,28 @@ export default {
   },
   getUser (credentials) {
     return axios
-      .post(url + 'update-user/', credentials)
+      .post(url + 'get-user/', credentials)
+      .then(response => response.data)
   },
+
+  updateCompat (credentials) {
+    return axios
+      .post(url + 'update-compat/', credentials)
+      .then(response => response.data)
+  },
+
+  getCompat (credentials) {
+    return axios
+      .post(url + 'get-compatibility/', credentials)
+      .then(response => response.data)
+  },
+
+  updateUser (credentials) {
+    return axios
+      .post(url + 'update-user/', credentials)
+      .then(response => response.data)
+  },
+
   signUp (credentials) {
     return axios
       .post(url + 'sign-up/', credentials)

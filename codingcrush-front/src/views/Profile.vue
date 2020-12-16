@@ -67,10 +67,10 @@ export default {
       this.$router.push('/login')
     }
 
-    this.username = this.$store.getters.getUser.username
-    this.lastname = this.$store.getters.getUser.lastname
-    this.urlImage = this.$store.getters.getUser.profilimageurl
-    this.descriptionUser = this.$store.getters.getUser.descriptionUser
+    this.username = ''
+    this.lastname = ''
+    this.urlImage = ''
+    this.descriptionUser = ''
 
     this.secretMessage = await AuthService.getSecretContent()
   },
@@ -78,7 +78,29 @@ export default {
     logout () {
       this.$store.dispatch('logout')
       this.$router.push('/login')
+    },
+    async getUser () {
+      try {
+        const credentials = {
+          idUser: this.$store.getters.getUser.id
+        }
+        const response = await AuthService.getUser(credentials)
+
+        this.msg = response.msg
+
+        const user = response.user
+
+        this.username = user.username
+        this.lastname = user.lastname
+        this.urlImage = user.profilimageurl
+        this.descriptionUser = user.descriptionUser
+      } catch (error) {
+        // this.msg = error.response.data.msg
+      }
     }
+  },
+  mounted () {
+    this.getUser()
   },
   computed: {
     ...mapState({

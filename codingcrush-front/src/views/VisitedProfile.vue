@@ -9,7 +9,7 @@
           ></b-avatar>
         </div>
         <b-col>
-          <h1> {{ username }} </h1>
+          <h1> {{ username }} </h1> <b-icon-type-h2> {{ compat }} %</b-icon-type-h2>
           <p>
             {{ descriptionUser }}
           </p>
@@ -48,6 +48,7 @@
 
 <script>
 import AuthService from '@/services/AuthService.js'
+import CompatibilityService from '@/services/CompatibilityService.js'
 
 export default {
   data () {
@@ -58,7 +59,8 @@ export default {
       urlImage: '',
       descriptionUser: '',
       post: null,
-      visitedId: this.$route.params.id
+      visitedId: this.$route.params.id,
+      compat: '?'
     }
   },
   async created () {
@@ -78,7 +80,6 @@ export default {
         const response = await AuthService.getUser(credentials)
 
         this.msg = response.msg
-
         const user = response.user
 
         this.username = user.username
@@ -88,10 +89,54 @@ export default {
       } catch (error) {
         // this.msg = error.response.data.msg
       }
+    },
+    async loadCompat () {
+      try {
+        var tabId = [this.$route.params.id, this.$store.getters.getUser.id]
+        tabId.sort()
+        const credentials = {
+          idFirstUser: tabId[0],
+          idSecondUser: tabId[1]
+        }
+        const response = await AuthService.getCompat(credentials)
+        // this.msg = response.msg
+
+        const resultCompat = response.compat
+
+        console.log(response)
+        if (resultCompat) {
+          this.compat = resultCompat.value
+        } else {
+          const credentials1 = {
+            idUser: tabId[0]
+          }
+          const response1 = await AuthService.getUser(credentials1)
+          const user1 = response1.user
+
+          const credentials2 = {
+            idUser: tabId[1]
+          }
+          const response2 = await AuthService.getUser(credentials2)
+          const user2 = response2.user
+
+          const compatibility = CompatibilityService.calculCompat(user1, user2)
+          console.log(compatibility)
+          this.compat = compatibility
+          const compatCredentials = {
+            idFirstUser: tabId[0],
+            idSecondUser: tabId[1],
+            value: compatibility
+          }
+          await AuthService.updateCompat(compatCredentials)
+        }
+      } catch (error) {
+        // this.msg = error.response.data.msg
+      }
     }
   },
   mounted () {
     this.getUser()
+    this.loadCompat()
   }
 }
 

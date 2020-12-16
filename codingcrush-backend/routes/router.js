@@ -29,8 +29,10 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
           } else {
             // has hashed pw => add to database
             db.query(
-              `INSERT INTO users (id, username, lastname, birthdate, profilimageurl, password, registered) VALUES ('${uuid.v4()}', ${db.escape(
+              `INSERT INTO users (id, username, lastname, firstname, birthdate, profilimageurl, password, registered) VALUES ('${uuid.v4()}', ${db.escape(
                   req.body.username
+                )},${db.escape(
+                  req.body.firstname
                 )},${db.escape(
                   req.body.lastname
                 )},${db.escape(
@@ -79,7 +81,7 @@ router.post('/update-profile', (req, res, next) => {
         )
       }
     }
-  )
+  );
 
 router.post('/get-user', (req, res, next) => { 
   db.query(
@@ -92,8 +94,40 @@ router.post('/get-user', (req, res, next) => {
         }
         )
       },
-)
-      
+);
+
+router.post('/update-compat', (req, res, next) => { 
+  db.query(
+    `INSERT INTO compatibilities (firstUserId, secondUserId, value) VALUES (${db.escape(
+      req.body.idFirstUser
+    )},${db.escape(
+      req.body.idSecondUser
+    )},${db.escape(
+      req.body.value
+    )})`,),
+      (err, result) => {
+        if (err) {
+          throw err;
+          return res.status(400).send({
+            msg: err
+          });
+        }
+      }
+    }
+  );
+
+router.post('/get-compatibility', (req, res, next) => { 
+  db.query(
+          `SELECT value FROM compatibilities WHERE firstUserId = ${db.escape(req.body.idFirstUser)} AND secondUserId = ${db.escape(req.body.idSecondUser)} ;`,
+          (err, result) => {
+          return res.status(200).send({
+            compat: result[0],
+            //msg: 'Mise à jour réussie !'
+          });
+        }
+        )
+      },
+  );
 
 router.post('/login', (req, res, next) => {
   db.query(
