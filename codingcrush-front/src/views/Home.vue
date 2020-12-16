@@ -119,27 +119,27 @@
             <a
               class="list-group-item text-secondary"
               :href="'/answerquizz/' + questions[0].id"
-              >{{ questions[0].question }}</a
+              >{{ questions[0].question }} par {{ questions[0].username }}</a
             >
             <a
               class="list-group-item text-secondary"
               :href="'/answerquizz/' + questions[1].id"
-              >{{ questions[1].question }}</a
+              >{{ questions[1].question }} par {{ questions[1].username }}</a
             >
             <a
               class="list-group-item text-secondary"
               :href="'/answerquizz/' + questions[2].id"
-              >{{ questions[2].question }}</a
+              >{{ questions[2].question }} par {{ questions[1].username }}</a
             >
             <a
               class="list-group-item text-secondary"
               :href="'/answerquizz/' + questions[3].id"
-              >{{ questions[3].question }}</a
+              >{{ questions[3].question }} par {{ questions[1].username }}</a
             >
             <a
               class="list-group-item text-secondary"
               :href="'/answerquizz/' + questions[4].id"
-              >{{ questions[4].question }}</a
+              >{{ questions[4].question }} par {{ questions[1].username }}</a
             >
           </b-col>
         </b-col>
@@ -178,6 +178,8 @@ export default {
     this.otherUsers = await AuthService.getUsers()
     this.lastQuestions = await AuthService.getQuestions()
     this.allUsers = await AuthService.getAllUsers()
+
+    console.log(this.lastQuestions)
 
     this.secretMessage = await AuthService.getSecretContent()
   },
