@@ -254,6 +254,31 @@ router.post('/add-question', quizzMiddleware.validateCreateQuizz, (req, res, nex
   );
 });
 
+router.post('/get-questions', (req, res, next) => {
+  db.query(
+    `SELECT * FROM littlequizz ORDER BY creationdate DESC LIMIT 4`,
+    (err, result) => {  
+    return res.status(200).send({
+      question: result,
+      //msg: 'Mise à jour réussie !'
+    });
+  }
+  )
+});
+
+router.post('/get-question', (req, res, next) => { 
+  db.query(
+          `SELECT * FROM littlequizz WHERE id = ${db.escape(req.body.idQuizz)};`,
+          (err, result) => {
+          return res.status(200).send({
+            quizz: result[0],
+            //msg: 'Mise à jour réussie !'
+          });
+        }
+        )
+      },
+);
+
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });

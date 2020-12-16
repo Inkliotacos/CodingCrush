@@ -93,8 +93,9 @@
         </b-col>
         <b-col cols="6">
           <h2 class="mt-3">Derniers quizz</h2>
-          <p>“Comment me connaître” par Esteban</p>
-          <p>“Ceci est un quiz” par Esteban</p>
+          <b-col v-for="questions in lastQuestions" :key="questions">
+            <p>{{ questions[0].question }} par {{ questions[0]}}</p>
+          </b-col>
         </b-col>
       </b-row>
       <p>{{ secretMessage }}</p>
@@ -113,7 +114,8 @@ export default {
       username: '',
       urlImage: '',
       id: '',
-      otherUsers: []
+      otherUsers: [],
+      lastQuestions: []
     }
   },
   async created () {
@@ -126,8 +128,9 @@ export default {
     this.urlImage = this.$store.getters.getUser.profilimageurl
     this.id = this.$store.getters.getUser.id
     this.otherUsers = await AuthService.getUsers()
+    this.lastQuestions = await AuthService.getQuestions()
 
-    console.log(this.otherUsers.users)
+    console.log(this.lastQuestions)
 
     this.secretMessage = await AuthService.getSecretContent()
   },
