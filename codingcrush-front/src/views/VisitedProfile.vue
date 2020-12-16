@@ -9,7 +9,7 @@
           ></b-avatar>
         </div>
         <b-col>
-          <h1> {{ username }} </h1> <b-icon-type-h2> {{ compat }} %</b-icon-type-h2>
+          <h1> {{ username }} </h1> <h3> {{ compat }} %</h3>
           <p>
             {{ descriptionUser }}
           </p>
@@ -103,9 +103,10 @@ export default {
 
         const resultCompat = response.compat
 
-        console.log(response)
+        // console.log(response)
         if (resultCompat) {
           this.compat = resultCompat.value
+          // console.log(this.compat)
         } else {
           const credentials1 = {
             idUser: tabId[0]
@@ -127,6 +128,7 @@ export default {
             idSecondUser: tabId[1],
             value: compatibility
           }
+          console.log(compatCredentials)
           await AuthService.updateCompat(compatCredentials)
         }
       } catch (error) {
