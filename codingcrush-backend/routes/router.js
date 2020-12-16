@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 
 const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
+const quizzMiddleware = require('../middleware/quizz.js')
+// PENSER A FAIRE QUIZZMIDDLEWARE
 
 /* route d'inscription */
 router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
@@ -198,6 +200,29 @@ router.post('/get-users', (req, res, next) => {
     });
   }
   )
+});
+
+router.post('/add-quizz', (req, res, next) => {
+  db.query(
+    `INSERT INTO quizz (name, creatorid, creationdate, numberquestions) VALUES (${db.escape(
+        req.body.quizzname
+      )},${db.escape(
+        req.body.creatorid
+      )}, now(), ${db.escape(
+        req.body.numberquestions
+      )} )`,
+    (err, result) => {
+      if (err) {
+        throw err;
+        return res.status(400).send({
+          msg: err
+        });
+      }
+      return res.status(201).send({
+        msg: 'Création réussie !'
+      });
+    }
+  );
 });
 
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {

@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
 import EditProfile from '../views/EditProfile.vue'
 import VisitedProfile from '../views/VisitedProfile'
+import AddQuizz from '../views/AddQuizz'
 
 /*
 import login from '../components/login.vue'
@@ -53,6 +54,11 @@ const routes = [
     name: 'visitedProfile',
     component: VisitedProfile,
     props: { default: true, sidebar: false }
+  },
+  {
+    path: '/addquizz',
+    name: 'addQuizz',
+    component: AddQuizz
   }
 ]
 
