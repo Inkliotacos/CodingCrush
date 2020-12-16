@@ -99,7 +99,6 @@
         </b-col>
       </b-row>
       <p>{{ secretMessage }}</p>
-      <input type="button" value="Logout" @click="logout" />
     </b-container>
   </div>
 </template>
@@ -133,12 +132,6 @@ export default {
     console.log(this.lastQuestions)
 
     this.secretMessage = await AuthService.getSecretContent()
-  },
-  methods: {
-    logout () {
-      this.$store.dispatch('logout')
-      this.$router.push('/login')
-    }
   }
 }
 </script>
