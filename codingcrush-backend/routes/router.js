@@ -256,7 +256,7 @@ router.post('/add-question', quizzMiddleware.validateCreateQuizz, (req, res, nex
 
 router.post('/get-questions', (req, res, next) => {
   db.query(
-    `SELECT * FROM littlequizz ORDER BY creationdate DESC LIMIT 4`,
+    `SELECT * FROM littlequizz ORDER BY creationdate DESC LIMIT 5`,
     (err, result) => {  
     return res.status(200).send({
       question: result,

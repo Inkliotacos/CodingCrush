@@ -94,7 +94,11 @@
         <b-col cols="6">
           <h2 class="mt-3">Derniers quizz</h2>
           <b-col v-for="questions in lastQuestions" :key="questions">
-            <p>{{ questions[0].question }} par {{ questions[0]}}</p>
+            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[0].id">{{ questions[0].question }}</a>
+            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[1].id">{{ questions[1].question }}</a>
+            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[2].id">{{ questions[2].question }}</a>
+            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[3].id">{{ questions[3].question }}</a>
+            <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions[4].id">{{ questions[4].question }}</a>
           </b-col>
         </b-col>
       </b-row>
