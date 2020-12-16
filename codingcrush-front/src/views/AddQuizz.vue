@@ -5,13 +5,14 @@
         <b-form-input placeholder="Nom du quiz" v-model="namequizz"></b-form-input>
       </b-col>
       <div v-for="index in count" :key="index">
-        <AddQuestion />
+        <AddQuestion v-bind:countQ='index' v-on:inputChange="updateQuestions"/>
       </div>
+      <p>{{ questions }}</p>
       <b-button v-on:click="addComponent">Ajouter une question</b-button>
       <b-button v-on:click="removeComponent"
         >Retirer la dernière question</b-button
       >
-      <b-button v-on:click="create">Créer le quizz</b-button>
+      <b-button v-on:click="create(); passQuestion()">Créer le quizz</b-button>
     </b-container>
   </div>
 </template>
@@ -24,7 +25,8 @@ export default {
   data () {
     return {
       count: 1,
-      namequizz: ''
+      namequizz: '',
+      questions: []
     }
   },
   async created () {
@@ -34,6 +36,9 @@ export default {
     }
   },
   methods: {
+    updateQuestions (questionName, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3) {
+      this.questions.push(questionName, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3)
+    },
     async create () {
       try {
         const credentials = {
@@ -41,13 +46,14 @@ export default {
           numberquestions: this.count,
           creatorid: this.$store.getters.getUser.id
         }
-        this.$router.push('/profile')
+        // this.$router.push('/profile')
 
         await AuthService.createQuizz(credentials)
       } catch (error) {
         this.msg = error.response.data.msg
       }
     },
+
     addComponent () {
       this.count++
     },

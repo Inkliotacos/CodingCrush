@@ -54,6 +54,11 @@ export default {
       .post(url + 'add-quizz/', credentials)
       .then(response => response.data)
   },
+  createQuestion (credentials) {
+    return axios
+      .post(url + 'add-question/', credentials)
+      .then(response => response.data)
+  },
   getSecretContent () {
     return axios.get(url + 'secret-route/').then(response => response.data)
   }

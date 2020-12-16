@@ -225,6 +225,29 @@ router.post('/add-quizz', (req, res, next) => {
   );
 });
 
+router.post('/add-question', (req, res, next) => {
+  db.query(
+    `INSERT INTO quizz (quizid, question, correctanswer, incorrectanswer1, incorrectanswer2, incorrectanswer3) VALUES (${db.escape(
+        req.body.quizzname
+      )},${db.escape(
+        req.body.creatorid
+      )}, ${db.escape(
+        req.body.numberquestions
+      )} )`,
+    (err, result) => {
+      if (err) {
+        throw err;
+        return res.status(400).send({
+          msg: err
+        });
+      }
+      return res.status(201).send({
+        msg: 'Création réussie !'
+      });
+    }
+  );
+});
+
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });
