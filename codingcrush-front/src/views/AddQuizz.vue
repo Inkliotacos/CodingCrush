@@ -50,7 +50,6 @@
         </b-input-group>
       </b-col>
     </b-card>
-      <p>{{ questions }}</p>
       <b-button @click="createQuestion">Créer la question</b-button>
     </b-container>
   </div>
@@ -83,7 +82,7 @@ export default {
           incorrectAnswer3: this.questions.incorrectAnswer3,
           creatorid: this.$store.getters.getUser.id
         }
-        // this.$router.push('/profile')
+        this.$router.push('/profile')
 
         await AuthService.createQuestion(credentials)
       } catch (error) {
