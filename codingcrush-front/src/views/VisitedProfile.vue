@@ -83,6 +83,7 @@ export default {
       lastname: '',
       mail: '',
       firstname: '',
+      mail: '',
       urlImage: '',
       descriptionUser: '',
       crushMessage: '',
@@ -130,6 +131,7 @@ export default {
         this.lastname = user.lastname
         this.mail = user.mail
         this.firstname = user.firstname
+        this.mail = user.mail
         this.urlImage = user.profilimageurl
         this.descriptionUser = user.descriptionUser
         this.facebookLink = user.facebooklink
