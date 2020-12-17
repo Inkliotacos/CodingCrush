@@ -61,7 +61,6 @@ export default {
           idQuizz: this.quizzId
         }
         const response = await AuthService.getQuestion(credentials)
-        console.log(this.quizzId)
         this.msg = response.msg
         const quizz = response.quizz
 
@@ -70,7 +69,6 @@ export default {
         this.incorrectAnswer1 = quizz.incorrectanswer1
         this.incorrectAnswer2 = quizz.incorrectanswer2
         this.incorrectAnswer3 = quizz.incorrectanswer3
-        console.log(this.correctAnswer)
       } catch (error) {
         // this.msg = error.response.data.msg
       }

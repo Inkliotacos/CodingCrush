@@ -26,8 +26,7 @@
               <tr class="dropdown-item" v-for="item in resultQuery" :key="item">
                 <a
                   class="list-item text-secondary"
-                  v-bind:href="'/profile/' + item.id"
-                  target="_blank"
+                  :href="'/profile/' + item.id"
                   >{{ item.username }}</a
                 >
               </tr>
@@ -79,7 +78,7 @@
                   <b-col v-if="id != users[2].id"
                     ><b-avatar
                       :src="users[2].profilimageurl"
-                      :href="'/profile/' + users[2].id"
+                      :href="'/profile/' + users[2].id" target="_blank"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[2].username }}</h4></b-col
@@ -118,27 +117,27 @@
           <b-col v-for="questions in lastQuestions" :key="questions">
             <a
               class="list-group-item text-secondary"
-              :href="'/answerquizz/' + questions[0].id"
+              :href="'/answerquizz/' + questions[0].quizzid"
               >{{ questions[0].question }} par {{ questions[0].username }}</a
             >
             <a
               class="list-group-item text-secondary"
-              :href="'/answerquizz/' + questions[1].id"
+              :href="'/answerquizz/' + questions[1].quizzid"
               >{{ questions[1].question }} par {{ questions[1].username }}</a
             >
             <a
               class="list-group-item text-secondary"
-              :href="'/answerquizz/' + questions[2].id"
+              :href="'/answerquizz/' + questions[2].quizzid"
               >{{ questions[2].question }} par {{ questions[1].username }}</a
             >
             <a
               class="list-group-item text-secondary"
-              :href="'/answerquizz/' + questions[3].id"
+              :href="'/answerquizz/' + questions[3].quizzid"
               >{{ questions[3].question }} par {{ questions[1].username }}</a
             >
             <a
               class="list-group-item text-secondary"
-              :href="'/answerquizz/' + questions[4].id"
+              :href="'/answerquizz/' + questions[4].quizzid"
               >{{ questions[4].question }} par {{ questions[1].username }}</a
             >
           </b-col>
@@ -212,8 +211,8 @@ export default {
 .dropdown-content {
   position: absolute;
   background-color: #fff;
-  min-width: 238px;
-  max-width: 238px;
+  min-width: 295px;
+  max-width: 288px;
   max-height: 248px;
   border: 1px solid #e7ecf5;
   box-shadow: 0px -8px 34px 0px rgba(0, 0, 0, 0.05);
