@@ -75,6 +75,13 @@ export default {
       .post(url + 'get-question/', credentials)
       .then(response => response.data)
   },
+
+  sendCrush (credentials) {
+    return axios
+      .post(url + 'add-crush/', credentials)
+      .then(response => response.data)
+  },
+
   getSecretContent () {
     return axios.get(url + 'secret-route/').then(response => response.data)
   }

@@ -13,8 +13,9 @@
           <p>
             {{ descriptionUser }}
           </p>
-          <b-button @click="sendEmail">Envoyer un crush !</b-button>
-          <b-textarea name="message" v-model="crushMessage" placeholder="Un  petit message pour votre crush 😏"></b-textarea>
+            <b-button @click="sendCrush()">Envoyer un crush !</b-button>
+            <b-textarea name="message" v-model="crushMessage" placeholder="Un  petit message pour votre crush 😏"></b-textarea>
+            <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
             <b-icon icon="facebook"></b-icon>
         </b-col>
       </div>
@@ -70,7 +71,8 @@ export default {
       facebookLink: '',
       instagramLink: '',
       twitterLink: '',
-      steamLink: ''
+      steamLink: '',
+      msg: ''
     }
   },
   async created () {
@@ -147,6 +149,20 @@ export default {
           console.log(compatCredentials)
           await AuthService.updateCompat(compatCredentials)
         }
+      } catch (error) {
+        // this.msg = error.response.data.msg
+      }
+    },
+    async sendCrush () {
+      try {
+        const credentials = {
+          idRecipient: this.visitedId,
+          idSender: this.$store.getters.getUser.id,
+          message: this.crushMessage
+        }
+        const response = await AuthService.sendCrush(credentials)
+
+        this.msg = response.msg
       } catch (error) {
         // this.msg = error.response.data.msg
       }
