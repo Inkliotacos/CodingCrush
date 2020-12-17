@@ -71,6 +71,7 @@ export default {
       crushList: {},
       crushSendList: {},
       questionsUser: []
+      crushList: {}
     }
   },
   async created () {
