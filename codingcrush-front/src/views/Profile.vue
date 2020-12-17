@@ -34,6 +34,7 @@
             <b-list-group-item class="d-flex align-items-center" v-for="crush in crushSendList" :key="crush">
               <b-avatar class="mr-3" :src="crush.profilimageurl" :href="'/profile/'+crush.idRecipient"></b-avatar>
               <p>{{crush.message}} [{{dateFormat(crush.date)}}]</p>
+              <b-button @click="deleteCrush(crush.crushId)">Suppprimer</b-button>
             </b-list-group-item>
           </b-list-group>
 
@@ -130,6 +131,13 @@ export default {
       } catch (error) {
         // this.msg = error.response.data.msg
       }
+    },
+    async deleteCrush (crushId) {
+      const credentials = {
+        idCrush: crushId
+      }
+      await AuthService.deleteCrush(credentials)
+      this.getSendCrush()
     }
   },
   mounted () {

@@ -324,7 +324,7 @@ router.post('/add-crush', (req, res, next) => {
 
 router.post('/get-crush-send', (req, res, next) => { 
   db.query(
-          `SELECT * FROM crushs
+          `SELECT profilimageurl, idRecipient, crushs.id AS crushId, date, message FROM crushs
           LEFT JOIN users 
             ON users.id = crushs.idRecipient
           WHERE idSender =  ${db.escape(req.body.idUser)};`,
@@ -341,6 +341,20 @@ router.post('/get-crush-send', (req, res, next) => {
 router.post('/get-crush-receive', (req, res, next) => { 
   db.query(
           `SELECT * FROM crushs WHERE idRecipient = ${db.escape(req.body.idUser)};`,
+          (err, result) => {
+          return res.status(200).send({
+            crushs: result,
+            //msg: 'Mise à jour réussie !'
+          });
+        }
+        )
+      },
+);
+
+router.post('/delete-crush', (req, res, next) => { 
+  db.query(
+          `DELETE FROM crushs
+          WHERE id =  ${db.escape(req.body.idCrush)};`,
           (err, result) => {
           return res.status(200).send({
             crushs: result,
