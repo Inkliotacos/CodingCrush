@@ -20,6 +20,27 @@
           <p>
             {{ descriptionUser }}
           </p>
+          <a :href="facebookLink" v-if="facebookLink.length" target="_blank">
+            <img
+              width="30px"
+              src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-facebook-1.png&r=0&g=0&b=0"
+            /> </a
+          ><a :href="instagramLink" v-if="instagramLink.length" target="_blank">
+            <img
+              width="30px"
+              src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2016/png/iconmonstr-instagram-11.png&r=0&g=0&b=0"
+            /> </a
+          ><a :href="twitterLink" v-if="twitterLink.length" target="_blank"
+            ><img
+              width="30px"
+              src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-twitter-1.png&r=0&g=0&b=0"
+            /> </a
+          ><a :href="steamLink" v-if="steamLink.length" target="_blank"
+            ><img
+              width="30px"
+              src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2014/png/iconmonstr-steam-3.png&r=0&g=0&b=0"
+            />
+          </a>
             <b-button @click="sendCrush()">Envoyer un crush !</b-button>
             <b-textarea name="message" v-model="crushMessage" placeholder="Un  petit message pour votre crush 😏"></b-textarea>
             <p>Il vous reste {{ crushdispo }} crushs que vous pouvez envoyer.</p>
