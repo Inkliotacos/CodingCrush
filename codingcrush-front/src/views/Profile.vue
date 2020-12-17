@@ -68,9 +68,7 @@ export default {
       lastname: '',
       urlImage: '',
       descriptionUser: '',
-      crushList: {},
-      crushSendList: {},
-      questionsUser: []
+      questionsUser: [],
       crushList: {},
       crushSendList: {}
     }

@@ -20,7 +20,6 @@
           <p>
             {{ descriptionUser }}
           </p>
-            <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
           <a :href="facebookLink" v-if="facebookLink.length" target="_blank">
             <img
               width="30px"
@@ -44,7 +43,7 @@
           </a>
             <b-button @click="sendCrush()">Envoyer un crush !</b-button>
             <b-textarea name="message" v-model="crushMessage" placeholder="Un  petit message pour votre crush 😏"></b-textarea>
-            <p>Il vous reste {{ crushdispo }} crushs que vous pouvez envoyer.</p>
+            <p>Il vous reste {{ crushdispo }} crushs que vous pouvez envoyer.</p>
             <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
             <b-icon icon="facebook"></b-icon>
         </b-col>
@@ -84,7 +83,6 @@ export default {
       lastname: '',
       mail: '',
       firstname: '',
-      mail: '',
       urlImage: '',
       descriptionUser: '',
       crushMessage: '',
@@ -98,7 +96,8 @@ export default {
       msg: '',
       creatorId: '',
       questionsUser: [],
-      crushdispo: 0
+      crushdispo: 0,
+      crushList: {}
     }
   },
   async created () {

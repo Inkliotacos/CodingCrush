@@ -76,30 +76,6 @@ export default {
       .then(response => response.data)
   },
 
-  sendCrush (credentials) {
-    return axios
-      .post(url + 'add-crush/', credentials)
-      .then(response => response.data)
-  },
-
-  getCrushSend (credentials) {
-    return axios
-      .post(url + 'get-crush-send/', credentials)
-      .then(response => response.data)
-  },
-
-  getCrushReceive (credentials) {
-    return axios
-      .post(url + 'get-crush-receive/', credentials)
-      .then(response => response.data)
-  },
-
-  deleteCrush (credentials) {
-    return axios
-      .post(url + 'delete-crush/', credentials)
-      .then(response => response.data)
-  },
-
   getQuestionProfile (credentials) {
     return axios
       .post(url + 'get-question-profile/', credentials)
