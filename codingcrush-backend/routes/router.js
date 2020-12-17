@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 
 const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
+const quizzMiddleware = require('../middleware/quizz.js')
+// PENSER A FAIRE QUIZZMIDDLEWARE
 
 /* route d'inscription */
 router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
@@ -61,7 +63,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
 
 router.post('/update-profile', (req, res, next) => { 
   db.query(
-    `UPDATE users SET descriptionUser = ${db.escape(req.body.description )}, profilimageurl =  ${db.escape(req.body.profilimage)} WHERE id = ${db.escape(req.body.idUser)} `
+    `UPDATE users SET descriptionUser = ${db.escape(req.body.description )}, profilimageurl =  ${db.escape(req.body.profilimage)}, facebooklink = ${db.escape(req.body.facebookLink )}, instagramlink = ${db.escape(req.body.instagramLink )}, twitterlink = ${db.escape(req.body.twitterLink )}, steamlink = ${db.escape(req.body.steamLink )} WHERE id = ${db.escape(req.body.idUser)} `
       ),
       (err, result) => {
         if (err) {
@@ -199,6 +201,100 @@ router.post('/get-users', (req, res, next) => {
   }
   )
 });
+
+router.post('/get-all-users', (req, res, next) => {
+  db.query(
+    `SELECT username, id, profilimageurl FROM users ORDER BY username ASC`,
+    (err, result) => {  
+    return res.status(200).send({
+      users: result,
+      //msg: 'Mise à jour réussie !'
+    });
+  }
+  )
+});
+
+router.post('/add-quizz', (req, res, next) => {
+  db.query(
+    `INSERT INTO quizz (name, creatorid, creationdate, numberquestions) VALUES (${db.escape(
+        req.body.quizzname
+      )},${db.escape(
+        req.body.creatorid
+      )}, now(), ${db.escape(
+        req.body.numberquestions
+      )} )`,
+    (err, result) => {
+      if (err) {
+        throw err;
+        return res.status(400).send({
+          msg: err
+        });
+      }
+      return res.status(201).send({
+        msg: 'Création réussie !'
+      });
+    }
+  );
+});
+
+router.post('/add-question', quizzMiddleware.validateCreateQuizz, (req, res, next) => {
+  db.query(
+    `INSERT INTO littlequizz (creatorid, question, creationdate, correctanswer, incorrectanswer1, incorrectanswer2, incorrectanswer3) VALUES (${db.escape(
+        req.body.creatorid
+      )},${db.escape(
+        req.body.question
+      )}, now(), ${db.escape(
+        req.body.correctAnswer
+      )}, ${db.escape(
+        req.body.incorrectAnswer1
+      )}, ${db.escape(
+        req.body.incorrectAnswer2
+      )}, ${db.escape(
+        req.body.incorrectAnswer3
+      )} )`,
+    (err, result) => {
+      if (err) {
+        // throw err;
+        return res.status(400).send({
+          msg: err
+        });
+      }
+      return res.status(201).send({
+        msg: 'Création réussie !'
+      });
+    }
+  );
+});
+
+router.post('/get-questions', (req, res, next) => {
+  db.query(
+    `SELECT littlequizz.id AS quizzid, question, creationdate, creatorid, users.username FROM littlequizz 
+    INNER JOIN users 
+    ON creatorid = users.id 
+    WHERE users.id = creatorid
+    ORDER BY creationdate
+    DESC LIMIT 5`,
+    (err, result) => {  
+    return res.status(200).send({
+      question: result,
+      //msg: 'Mise à jour réussie !'
+    });
+  }
+  )
+});
+
+router.post('/get-question', (req, res, next) => { 
+  db.query(
+          `SELECT * FROM littlequizz WHERE id = ${db.escape(req.body.idQuizz)};`,
+          (err, result) => {
+          return res.status(200).send({
+            quizz: result[0],
+            //msg: 'Mise à jour réussie !'
+          });
+        }
+        )
+      },
+);
 
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');

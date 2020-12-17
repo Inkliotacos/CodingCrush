@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container>
-      <h1 class="text-center">Bonjour {{ username }} !</h1>
+          <h1 class="text-center" @click="optionsNotShow">Bonjour {{ username }} !</h1>
       <b-col sm="4">
         <b-input-group>
           <b-input-group-prepend>
@@ -9,10 +9,47 @@
               ><b-icon-search></b-icon-search
             ></span>
           </b-input-group-prepend>
-          <b-form-input size="m" placeholder="Rechercher un crush">
+          <b-form-input
+            size="m"
+            @click="showOptions"
+            class="dropdown-input"
+            type="text"
+            v-model="searchQuery"
+            placeholder="Rechercher un crush"
+          >
           </b-form-input>
         </b-input-group>
+        <div class="dropdown-content" v-show="optionsShown">
+          <table v-if="allUsers.length" class="table">
+            <tbody>
+              <tr class="dropdown-item" v-for="user in resultQuery" :key="user">
+                <p v-if="user.id !== id">
+                  <b-avatar style="margin-right: 3%"
+            :src="user.profilimageurl"
+            size="25px"
+          ></b-avatar>
+                <a @focus="showOptions"
+                  class="list-item text-secondary"
+                  :href="'/profile/' + user.id"
+                  >{{ user.username }}</a
+                ></p>
+                <p v-else>
+                  <b-avatar style="margin-right: 3%"
+            :src="user.profilimageurl"
+            size="25px"
+          ></b-avatar>
+                <a @focus="showOptions"
+                  class="list-item text-secondary"
+                  :href="'/profile/'"
+                  >{{ user.username }}</a
+                ></p>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </b-col>
+    </b-container>
+    <b-container @click="optionsNotShow">
       <b-row cols-sm="5" cols-md="2">
         <b-col cols="12">
           <b-row cols-sm="5" cols-md="1">
@@ -31,7 +68,7 @@
                   <b-col v-else>
                     <b-avatar
                       :src="users[0].profilimageurl"
-                      :href="/profile/"
+                      href="/profile/"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[0].username }}</h4></b-col
@@ -47,7 +84,7 @@
                   <b-col v-else>
                     <b-avatar
                       :src="users[1].profilimageurl"
-                      :href="/profile/"
+                      href="/profile/"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[1].username }}</h4></b-col
@@ -65,7 +102,7 @@
                   <b-col v-else>
                     <b-avatar
                       :src="users[2].profilimageurl"
-                      :href="/profile/"
+                      href="/profile/"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[2].username }}</h4></b-col
@@ -81,7 +118,7 @@
                   <b-col v-else>
                     <b-avatar
                       :src="users[3].profilimageurl"
-                      :href="/profile/"
+                      href="/profile/"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[3].username }}</h4></b-col
@@ -93,12 +130,36 @@
         </b-col>
         <b-col cols="6">
           <h2 class="mt-3">Derniers quizz</h2>
-          <p>“Comment me connaître” par Esteban</p>
-          <p>“Ceci est un quiz” par Esteban</p>
+          <b-col v-for="questions in lastQuestions" :key="questions">
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[0].quizzid"
+              >{{ questions[0].question }} par {{ questions[0].username }}</a
+            >
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[1].quizzid"
+              >{{ questions[1].question }} par {{ questions[1].username }}</a
+            >
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[2].quizzid"
+              >{{ questions[2].question }} par {{ questions[1].username }}</a
+            >
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[3].quizzid"
+              >{{ questions[3].question }} par {{ questions[1].username }}</a
+            >
+            <a
+              class="list-group-item text-secondary"
+              :href="'/answerquizz/' + questions[4].quizzid"
+              >{{ questions[4].question }} par {{ questions[1].username }}</a
+            >
+          </b-col>
         </b-col>
       </b-row>
       <p>{{ secretMessage }}</p>
-      <input type="button" value="Logout" @click="logout" />
     </b-container>
   </div>
 </template>
@@ -113,7 +174,11 @@ export default {
       username: '',
       urlImage: '',
       id: '',
-      otherUsers: []
+      otherUsers: [],
+      lastQuestions: [],
+      allUsers: [],
+      searchQuery: null,
+      optionsShown: false
     }
   },
   async created () {
@@ -126,16 +191,52 @@ export default {
     this.urlImage = this.$store.getters.getUser.profilimageurl
     this.id = this.$store.getters.getUser.id
     this.otherUsers = await AuthService.getUsers()
-
-    console.log(this.otherUsers.users)
+    this.lastQuestions = await AuthService.getQuestions()
+    this.allUsers = await AuthService.getAllUsers()
 
     this.secretMessage = await AuthService.getSecretContent()
   },
+  computed: {
+    resultQuery () {
+      if (this.searchQuery) {
+        return this.allUsers.filter((user) => {
+          return this.searchQuery
+            .toLowerCase()
+            .split(' ')
+            .every((v) => user.username.toLowerCase().includes(v))
+        })
+      } else {
+        return this.allUsers
+      }
+    }
+  },
   methods: {
-    logout () {
-      this.$store.dispatch('logout')
-      this.$router.push('/login')
+    showOptions () {
+      if (!this.disabled) {
+        this.optionsShown = true
+      }
+    },
+    optionsNotShow () {
+      this.optionsShown = false
     }
   }
 }
 </script>
+
+<style scoped>
+.dropdown-content {
+  position: absolute;
+  background-color: #fff;
+  min-width: 295px;
+  max-width: 288px;
+  max-height: 248px;
+  border: 1px solid #e7ecf5;
+  box-shadow: 0px -8px 34px 0px rgba(0, 0, 0, 0.05);
+  overflow: auto;
+  z-index: 1;
+  right: 15px;
+}
+.dropdown:hover .dropdowncontent {
+  display: block;
+}
+</style>

@@ -14,6 +14,12 @@ export default {
       .then(response => response.data)
   },
 
+  getAllUsers (credentials) {
+    return axios
+      .post(url + 'get-all-users/', credentials)
+      .then(response => response.data.users)
+  },
+
   updateCompat (credentials) {
     return axios
       .post(url + 'update-compat/', credentials)
@@ -47,6 +53,26 @@ export default {
   updateProfile (credentials) {
     return axios
       .post(url + 'update-profile/', credentials)
+      .then(response => response.data)
+  },
+  createQuizz (credentials) {
+    return axios
+      .post(url + 'add-quizz/', credentials)
+      .then(response => response.data)
+  },
+  createQuestion (credentials) {
+    return axios
+      .post(url + 'add-question/', credentials)
+      .then(response => response.data)
+  },
+  getQuestions (credentials) {
+    return axios
+      .post(url + 'get-questions/', credentials)
+      .then(response => response.data)
+  },
+  getQuestion (credentials) {
+    return axios
+      .post(url + 'get-question/', credentials)
       .then(response => response.data)
   },
   getSecretContent () {
