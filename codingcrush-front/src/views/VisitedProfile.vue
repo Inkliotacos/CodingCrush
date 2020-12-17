@@ -22,6 +22,7 @@
           </p>
             <b-button @click="sendCrush()">Envoyer un crush !</b-button>
             <b-textarea name="message" v-model="crushMessage" placeholder="Un  petit message pour votre crush 😏"></b-textarea>
+            <p>Il vous reste {{ crushdispo }} crushs que vous pouvez envoyer.</p>
             <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
           <a :href="facebookLink" v-if="facebookLink.length" target="_blank">
             <img
