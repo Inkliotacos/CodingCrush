@@ -45,11 +45,11 @@
           </b-list-group>
 
         </div>
-         <b-col class="col-6">
+          <b-col class="col-6">
           <h2 class="mt-3">Quizz</h2>
-           <b-col v-for="questions in questionsUser" :key="questions">
-             <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions.id">{{ questions.question }}</a>
-           </b-col>
+            <b-col v-for="questions in questionsUser" :key="questions">
+              <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions.id">{{ questions.question }}</a>
+            </b-col>
         </b-col>
       </b-row>
     </b-container>

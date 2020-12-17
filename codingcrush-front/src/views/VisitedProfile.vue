@@ -11,7 +11,7 @@
         <b-col>
           <b-row>
           <h1 style="margin: 12px"> {{ username }} </h1>
-           <span class="input-group-text">
+            <span class="input-group-text">
           <b-icon-heart-fill style="margin-right: 8px"></b-icon-heart-fill>
           <h3> {{ compat }} %</h3>
             </span>
@@ -22,7 +22,7 @@
           </p>
             <b-button @click="sendCrush()">Envoyer un crush !</b-button>
             <b-textarea name="message" v-model="crushMessage" placeholder="Un  petit message pour votre crush 😏"></b-textarea>
-            <p>Il vous reste {{ crushdispo }} crushs que vous pouvez envoyer.</p>
+            <p>Il vous reste {{ crushdispo }} crushs que vous pouvez envoyer.</p>
             <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
           <a :href="facebookLink" v-if="facebookLink.length" target="_blank">
             <img
@@ -65,9 +65,9 @@
         </div>
         <b-col class="col-6">
           <h2 class="mt-3">Quizz</h2>
-           <b-col v-for="questions in questionsUser" :key="questions">
-             <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions.id">{{ questions.question }}</a>
-           </b-col>
+            <b-col v-for="questions in questionsUser" :key="questions">
+              <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions.id">{{ questions.question }}</a>
+            </b-col>
         </b-col>
       </b-row>
     </b-container>
@@ -100,9 +100,7 @@ export default {
       steamLink: '',
       msg: '',
       creatorId: '',
-      crushList: {},
       questionsUser: [],
-      msg: '',
       crushdispo: 0
     }
   },
