@@ -5,11 +5,18 @@
         <div class="col-2">
           <b-avatar
             :src="urlImage"
-            size="auto"
+            size="130px"
           ></b-avatar>
         </div>
         <b-col>
-          <h1> {{ username }} </h1> <h3> {{ compat }} %</h3>
+          <b-row>
+          <h1 style="margin: 12px"> {{ username }} </h1>
+           <span class="input-group-text">
+          <b-icon-heart-fill style="margin-right: 8px"></b-icon-heart-fill>
+          <h3> {{ compat }} %</h3>
+            </span>
+            </b-row>
+          <h2> {{ firstname}} {{ lastname }}</h2>
           <p>
             {{ descriptionUser }}
           </p>
@@ -51,6 +58,7 @@ export default {
       username: '',
       lastname: '',
       mail: '',
+      firstname: '',
       urlImage: '',
       descriptionUser: '',
       crushMessage: '',
@@ -94,6 +102,7 @@ export default {
         this.username = user.username
         this.lastname = user.lastname
         this.mail = user.mail
+        this.firstname = user.firstname
         this.urlImage = user.profilimageurl
         this.descriptionUser = user.descriptionUser
         this.facebookLink = user.facebooklink
