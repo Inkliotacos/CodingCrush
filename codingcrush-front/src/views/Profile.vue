@@ -5,7 +5,7 @@
         <div class="col-2">
           <b-avatar
             :src="urlImage"
-            size="auto"
+            size="130px"
           ></b-avatar>
         </div>
         <b-col>
