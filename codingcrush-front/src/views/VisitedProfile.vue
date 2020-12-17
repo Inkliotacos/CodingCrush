@@ -13,6 +13,8 @@
           <p>
             {{ descriptionUser }}
           </p>
+          <b-button @click="sendEmail">Envoyer un crush !</b-button>
+          <b-textarea name="message" v-model="crushMessage" placeholder="Un  petit message pour votre crush 😏"></b-textarea>
             <b-icon icon="facebook"></b-icon>
         </b-col>
       </div>
@@ -50,6 +52,7 @@
 <script>
 import AuthService from '@/services/AuthService.js'
 import CompatibilityService from '@/services/CompatibilityService.js'
+import emailjs from 'emailjs-com'
 
 export default {
   data () {
@@ -57,8 +60,10 @@ export default {
       idVisitor: this.$store.getters.getUser.id,
       username: '',
       lastname: '',
+      mail: '',
       urlImage: '',
       descriptionUser: '',
+      crushMessage: '',
       post: null,
       visitedId: this.$route.params.id,
       compat: '?',
@@ -89,6 +94,7 @@ export default {
 
         this.username = user.username
         this.lastname = user.lastname
+        this.mail = user.mail
         this.urlImage = user.profilimageurl
         this.descriptionUser = user.descriptionUser
         this.facebookLink = user.facebooklink
@@ -144,6 +150,14 @@ export default {
       } catch (error) {
         // this.msg = error.response.data.msg
       }
+    },
+    sendEmail: (e) => {
+      emailjs.sendForm('service_mextk2d', 'template_76uj0h9', e.target, this.mail)
+        .then((result) => {
+          console.log('SUCCESS!', result.status, result.text)
+        }, (error) => {
+          console.log('FAILED...', error)
+        })
     }
   },
   mounted () {

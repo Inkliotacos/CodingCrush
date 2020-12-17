@@ -31,7 +31,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
           } else {
             // has hashed pw => add to database
             db.query(
-              `INSERT INTO users (id, username, lastname, firstname, birthdate, profilimageurl, password, registered) VALUES ('${uuid.v4()}', ${db.escape(
+              `INSERT INTO users (id, username, lastname, firstname, birthdate, profilimageurl, mail, password, registered) VALUES ('${uuid.v4()}', ${db.escape(
                   req.body.username
                 )},${db.escape(
                   req.body.firstname
@@ -41,7 +41,10 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
                   req.body.birthdate
                 )},${db.escape(
                   req.body.profilimage
-                )}, ${db.escape(hash)}, now())`,
+                )},${db.escape(
+                  req.body.email
+                )},
+                ${db.escape(hash)}, now())`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -63,7 +66,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
 
 router.post('/update-profile', (req, res, next) => { 
   db.query(
-    `UPDATE users SET descriptionUser = ${db.escape(req.body.description )}, profilimageurl =  ${db.escape(req.body.profilimage)}, facebooklink = ${db.escape(req.body.facebookLink )}, instagramlink = ${db.escape(req.body.instagramLink )}, twitterlink = ${db.escape(req.body.twitterLink )}, steamlink = ${db.escape(req.body.steamLink )} WHERE id = ${db.escape(req.body.idUser)} `
+    `UPDATE users SET descriptionUser = ${db.escape(req.body.description )}, profilimageurl =  ${db.escape(req.body.profilimage)}, mail =  ${db.escape(req.body.mail)}, facebooklink = ${db.escape(req.body.facebookLink )}, instagramlink = ${db.escape(req.body.instagramLink )}, twitterlink = ${db.escape(req.body.twitterLink )}, steamlink = ${db.escape(req.body.steamLink )} WHERE id = ${db.escape(req.body.idUser)} `
       ),
       (err, result) => {
         if (err) {

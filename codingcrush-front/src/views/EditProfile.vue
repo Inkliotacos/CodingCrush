@@ -2,12 +2,21 @@
   <div>
     <b-container>
       <b-form>
-                <label class="sr-only" for="edit-profilimage">Username</label>
+                <label class="sr-only" for="edit-username">Username</label>
           <b-input-group>
             <b-form-input
               id="edit-username"
               placeholder="Choissi ton nouveau nom"
               v-model="username"
+            ></b-form-input>
+          </b-input-group>
+
+      <label class="sr-only" for="edit-mail">Mail</label>
+          <b-input-group>
+            <b-form-input
+              id="edit-mail"
+              placeholder="Choissi ton nouveau mail"
+              v-model="mail"
             ></b-form-input>
           </b-input-group>
 
@@ -80,6 +89,7 @@ export default {
   data () {
     return {
       username: this.$store.getters.getUser.username,
+      mail: '',
       urlImage: this.$store.getters.getUser.profilimageurl,
       userDescription: this.$store.getters.getUser.descriptionUser,
       msg: '',
@@ -105,6 +115,7 @@ export default {
       try {
         const credentials = {
           username: this.username,
+          mail: this.mail,
           profilimage: this.urlImage,
           description: this.userDescription,
           idUser: this.$store.getters.getUser.id,
@@ -140,6 +151,7 @@ export default {
         const user = response.user
 
         this.username = user.username
+        this.mail = user.mail
         this.lastname = user.lastname
         this.urlImage = user.profilimageurl
         this.userDescription = user.descriptionUser

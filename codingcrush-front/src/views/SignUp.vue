@@ -53,6 +53,16 @@
             ></b-form-input>
           </b-input-group>
 
+          <label class="sr-only" for="login-email">Email</label>
+          <b-input-group>
+            <b-form-input
+              id="login-mail"
+              placeholder="email"
+              type="email"
+              v-model="email"
+            ></b-form-input>
+          </b-input-group>
+
           <label class="sr-only" for="login-password">Mot de passe</label>
           <b-input-group>
             <b-form-input
@@ -95,6 +105,7 @@ export default {
       lastname: '',
       birthdate: '',
       profilimage: '',
+      email: '',
       password: '',
       password_repeat: '',
       msg: ''
@@ -109,6 +120,7 @@ export default {
           lastname: this.lastname,
           birthdate: this.birthdate,
           profilimage: this.profilimage,
+          email: this.email,
           password: this.password,
           password_repeat: this.password_repeat
         }
