@@ -15,6 +15,7 @@
           </p>
             <b-button @click="sendCrush()">Envoyer un crush !</b-button>
             <b-textarea name="message" v-model="crushMessage" placeholder="Un  petit message pour votre crush 😏"></b-textarea>
+            <p>Il vous reste {{ crushdispo }} crushs que vous pouvez envoyer.</p>
             <b-alert show variant="warning" v-if="msg">{{ msg }}</b-alert>
             <b-icon icon="facebook"></b-icon>
         </b-col>
@@ -61,7 +62,8 @@ export default {
       twitterLink: '',
       steamLink: '',
       msg: '',
-      crushList: {}
+      crushList: {},
+      crushdispo: 0
 
     }
   },
@@ -99,6 +101,7 @@ export default {
         this.twitterLink = user.twitterlink
         this.steamLink = user.steamlink
         this.descriptionUser = user.descriptionUser
+        this.crushdispo = user.crushdisponible
         this.getReceiveCrush()
       } catch (error) {
         // this.msg = error.response.data.msg
