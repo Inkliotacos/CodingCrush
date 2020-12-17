@@ -14,7 +14,7 @@
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto">
+          <b-navbar-nav class="ml-auto" v-if="this.$store.getters.isLoggedIn">
                   <b-nav-item-dropdown right>
               <!-- Using 'button-content' slot -->
               <template #button-content>
