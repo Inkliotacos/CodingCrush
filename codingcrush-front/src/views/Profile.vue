@@ -41,9 +41,12 @@
             </b-list-group-item>
           </b-list-group>
         </div>
-        <div class="col-6">
+         <b-col class="col-6">
           <h2 class="mt-3">Quizz</h2>
-        </div>
+           <b-col v-for="questions in questionsUser" :key="questions">
+             <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions.id">{{ questions.question }}</a>
+           </b-col>
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -60,7 +63,8 @@ export default {
       username: '',
       lastname: '',
       urlImage: '',
-      descriptionUser: ''
+      descriptionUser: '',
+      questionsUser: []
     }
   },
   async created () {
@@ -87,6 +91,7 @@ export default {
           idUser: this.$store.getters.getUser.id
         }
         const response = await AuthService.getUser(credentials)
+        this.questionsUser = await AuthService.getQuestionProfile(credentials)
 
         this.msg = response.msg
 
