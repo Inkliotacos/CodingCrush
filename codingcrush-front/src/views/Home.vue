@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container>
-      <h1 class="text-center">Bonjour {{ username }} !</h1>
+          <h1 class="text-center" @click="optionsNotShow">Bonjour {{ username }} !</h1>
       <b-col sm="4">
         <b-input-group>
           <b-input-group-prepend>
@@ -11,8 +11,7 @@
           </b-input-group-prepend>
           <b-form-input
             size="m"
-            @focus="showOptions()"
-            @blur="optionsNotShow()"
+            @click="showOptions"
             class="dropdown-input"
             type="text"
             v-model="searchQuery"
@@ -23,17 +22,26 @@
         <div class="dropdown-content" v-show="optionsShown">
           <table v-if="allUsers.length" class="table">
             <tbody>
-              <tr class="dropdown-item" v-for="item in resultQuery" :key="item">
-                <a
+              <tr class="dropdown-item" v-for="user in resultQuery" :key="user">
+                <p v-if="user.id !== id">
+                <a @focus="showOptions"
                   class="list-item text-secondary"
-                  :href="'/profile/' + item.id"
-                  >{{ item.username }}</a
-                >
+                  :href="'/profile/' + user.id"
+                  >{{ user.username }}</a
+                ></p>
+                <p v-else>
+                <a @focus="showOptions"
+                  class="list-item text-secondary"
+                  :href="'/profile/'"
+                  >{{ user.username }}</a
+                ></p>
               </tr>
             </tbody>
           </table>
         </div>
       </b-col>
+    </b-container>
+    <b-container @click="optionsNotShow">
       <b-row cols-sm="5" cols-md="2">
         <b-col cols="12">
           <b-row cols-sm="5" cols-md="1">
@@ -52,7 +60,7 @@
                   <b-col v-else>
                     <b-avatar
                       :src="users[0].profilimageurl"
-                      :href="/profile/"
+                      href="/profile/"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[0].username }}</h4></b-col
@@ -68,7 +76,7 @@
                   <b-col v-else>
                     <b-avatar
                       :src="users[1].profilimageurl"
-                      :href="/profile/"
+                      href="/profile/"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[1].username }}</h4></b-col
@@ -78,7 +86,7 @@
                   <b-col v-if="id != users[2].id"
                     ><b-avatar
                       :src="users[2].profilimageurl"
-                      :href="'/profile/' + users[2].id" target="_blank"
+                      :href="'/profile/' + users[2].id"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[2].username }}</h4></b-col
@@ -86,7 +94,7 @@
                   <b-col v-else>
                     <b-avatar
                       :src="users[2].profilimageurl"
-                      :href="/profile/"
+                      href="/profile/"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[2].username }}</h4></b-col
@@ -102,7 +110,7 @@
                   <b-col v-else>
                     <b-avatar
                       :src="users[3].profilimageurl"
-                      :href="/profile/"
+                      href="/profile/"
                       size="150px"
                     ></b-avatar>
                     <h4>{{ users[3].username }}</h4></b-col
@@ -183,11 +191,11 @@ export default {
   computed: {
     resultQuery () {
       if (this.searchQuery) {
-        return this.allUsers.filter((item) => {
+        return this.allUsers.filter((user) => {
           return this.searchQuery
             .toLowerCase()
             .split(' ')
-            .every((v) => item.username.toLowerCase().includes(v))
+            .every((v) => user.username.toLowerCase().includes(v))
         })
       } else {
         return this.allUsers
