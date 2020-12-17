@@ -296,6 +296,19 @@ router.post('/get-question', (req, res, next) => {
       },
 );
 
+router.post('/get-question-profile', (req, res, next) => { 
+  db.query(
+          `SELECT question, id FROM littlequizz WHERE creatorid = ${db.escape(req.body.idUser)};`,
+          (err, result) => {
+          return res.status(200).send({
+            quizz: result,
+            //msg: 'Mise à jour réussie !'
+          });
+        }
+        )
+      },
+);
+
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });

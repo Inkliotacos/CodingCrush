@@ -20,7 +20,27 @@
           <p>
             {{ descriptionUser }}
           </p>
-            <b-icon icon="facebook"></b-icon>
+          <a :href="facebookLink" v-if="facebookLink.length" target="_blank">
+            <img
+              width="30px"
+              src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-facebook-1.png&r=0&g=0&b=0"
+            /> </a
+          ><a :href="instagramLink" v-if="instagramLink.length" target="_blank">
+            <img
+              width="30px"
+              src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2016/png/iconmonstr-instagram-11.png&r=0&g=0&b=0"
+            /> </a
+          ><a :href="twitterLink" v-if="twitterLink.length" target="_blank"
+            ><img
+              width="30px"
+              src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-twitter-1.png&r=0&g=0&b=0"
+            /> </a
+          ><a :href="steamLink" v-if="steamLink.length" target="_blank"
+            ><img
+              width="30px"
+              src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2014/png/iconmonstr-steam-3.png&r=0&g=0&b=0"
+            />
+          </a>
         </b-col>
       </div>
       <b-row cols-sm="1" cols-md="2">
@@ -46,9 +66,12 @@
             </b-list-group-item>
           </b-list-group>
         </div>
-        <div class="col-6">
+        <b-col class="col-6">
           <h2 class="mt-3">Quizz</h2>
-        </div>
+           <b-col v-for="questions in questionsUser" :key="questions">
+             <a class="list-group-item text-secondary" :href="'/answerquizz/' + questions.id">{{ questions.question }}</a>
+           </b-col>
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -73,7 +96,9 @@ export default {
       facebookLink: '',
       instagramLink: '',
       twitterLink: '',
-      steamLink: ''
+      steamLink: '',
+      creatorId: '',
+      questionsUser: []
     }
   },
   async created () {
@@ -91,6 +116,8 @@ export default {
           idUser: this.visitedId
         }
         const response = await AuthService.getUser(credentials)
+        this.questionsUser = await AuthService.getQuestionProfile(credentials)
+        console.log(this.questionsUser)
 
         this.msg = response.msg
         const user = response.user
