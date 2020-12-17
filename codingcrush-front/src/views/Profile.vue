@@ -20,14 +20,23 @@
       </div>
       <b-row cols-sm="1" cols-md="2">
         <div class="col-6">
-          <h2 class="mt-3">Crushs reçus</h2>
 
+          <h2 class="mt-3">Crushs reçus</h2>
           <b-list-group>
             <b-list-group-item class="d-flex align-items-center" v-for="crush in crushList" :key="crush">
               <b-avatar class="mr-3"></b-avatar>
               <p>{{crush.message}} [{{dateFormat(crush.date)}}]</p>
             </b-list-group-item>
           </b-list-group>
+
+          <h2 class="mt-3">Crushs envoyés</h2>
+          <b-list-group>
+            <b-list-group-item class="d-flex align-items-center" v-for="crush in crushSendList" :key="crush">
+              <b-avatar class="mr-3" :src="crush.profilimageurl" :href="'/profile/'+crush.idRecipient"></b-avatar>
+              <p>{{crush.message}} [{{dateFormat(crush.date)}}]</p>
+            </b-list-group-item>
+          </b-list-group>
+
         </div>
         <div class="col-6">
           <h2 class="mt-3">Quizz</h2>
@@ -49,7 +58,8 @@ export default {
       lastname: '',
       urlImage: '',
       descriptionUser: '',
-      crushList: {}
+      crushList: {},
+      crushSendList: {}
     }
   },
   async created () {
@@ -92,6 +102,7 @@ export default {
         this.descriptionUser = user.descriptionUser
 
         this.getReceiveCrush()
+        this.getSendCrush()
       } catch (error) {
         // this.msg = error.response.data.msg
       }
@@ -104,6 +115,18 @@ export default {
         const response = await AuthService.getCrushReceive(credentials)
         const crushsList = response.crushs
         this.crushList = crushsList
+      } catch (error) {
+        // this.msg = error.response.data.msg
+      }
+    },
+    async getSendCrush () {
+      try {
+        const credentials = {
+          idUser: this.$store.getters.getUser.id
+        }
+        const response = await AuthService.getCrushSend(credentials)
+        const crushsList = response.crushs
+        this.crushSendList = crushsList
       } catch (error) {
         // this.msg = error.response.data.msg
       }
