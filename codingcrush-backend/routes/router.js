@@ -378,6 +378,29 @@ router.post('/get-question-profile', (req, res, next) => {
       },
 );
 
+router.post('/add-crush', (req, res, next) => {
+  db.query(
+    `INSERT INTO crushs (idSender, idRecipient, message, date) VALUES (${db.escape(
+        req.body.idSender
+      )},${db.escape(
+        req.body.idRecipient
+      )},${db.escape(
+        req.body.message
+      )}, now() )`,
+    (err, result) => {
+      if (err) {
+        throw err;
+        return res.status(400).send({
+          msg: err
+        });
+      }
+      return res.status(201).send({
+        msg: 'Crush envoyé ! Tu gères grave bg !'
+      });
+    }
+  );
+});
+
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });
