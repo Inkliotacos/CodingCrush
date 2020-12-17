@@ -322,6 +322,32 @@ router.post('/add-crush', (req, res, next) => {
   );
 });
 
+router.post('/get-crush-send', (req, res, next) => { 
+  db.query(
+          `SELECT * FROM crushs WHERE idSender = ${db.escape(req.body.idUser)};`,
+          (err, result) => {
+          return res.status(200).send({
+            crushs: result,
+            //msg: 'Mise à jour réussie !'
+          });
+        }
+        )
+      },
+);
+
+router.post('/get-crush-receive', (req, res, next) => { 
+  db.query(
+          `SELECT * FROM crushs WHERE idRecipient = ${db.escape(req.body.idUser)};`,
+          (err, result) => {
+          return res.status(200).send({
+            crushs: result,
+            //msg: 'Mise à jour réussie !'
+          });
+        }
+        )
+      },
+);
+
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });

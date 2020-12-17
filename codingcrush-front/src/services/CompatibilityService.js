@@ -1,25 +1,3 @@
-/* const visitorUser = {
-  id: 2,
-  first_name: 'Houssam',
-  last_name: 'Laghzil',
-  email: 'esteban2@mail.com',
-  birth_date: '11/09/1999',
-  profile_picture: '/img/profilepic/2.png',
-  description: 'In occaecat aute eiusmod cupidatat consequat aliquip exercitation. Esse quis labore dolor minim in commodo ad do id consequat occaecat et tempor. Do est cupidatat Lorem sit aliquip.'
-}
-
-const visitedUser = {
-  id: 5,
-  first_name: 'Juan',
-  last_name: 'Fernando Herrada',
-  email: 'esteban2@mail.com',
-  birth_date: '13/08/2000',
-  profile_picture: '/img/profilepic/2.png',
-  description: 'In occaecat aute eiusmod cupidatat consequat aliquip exercitation. Esse quis labore dolor minim in commodo ad do id consequat occaecat et tempor. Do est cupidatat Lorem sit aliquip.'
-}
-
-*/
-
 function getAstrologicalSign (date) { // A voir selon le format de la date
   const dateTab = date.split('/')
   const day = parseInt(dateTab[0])
