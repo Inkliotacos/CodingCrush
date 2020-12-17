@@ -31,10 +31,16 @@
 
           <h2 class="mt-3">Crushs envoyés</h2>
           <b-list-group>
-            <b-list-group-item class="d-flex align-items-center" v-for="crush in crushSendList" :key="crush">
-              <b-avatar class="mr-3" :src="crush.profilimageurl" :href="'/profile/'+crush.idRecipient"></b-avatar>
-              <p>{{crush.message}} [{{dateFormat(crush.date)}}]</p>
-              <b-button @click="deleteCrush(crush.crushId)">Suppprimer</b-button>
+            <b-list-group-item class="d-flex align-items-center" v-for="crush in crushSendList" :key="crush" style= "justify-content: space-between;">
+              <b-col style="display: flex; flex : 3">
+                <b-row style= "display: flex; ">
+                  <b-avatar class="mr-3" :src="crush.profilimageurl" :href="'/profile/'+crush.idRecipient"></b-avatar>
+                  <p>{{crush.message}} [{{dateFormat(crush.date)}}]</p>
+                </b-row>
+              </b-col>
+              <b-col style="padding : 0; display: flex; flex : 1" >
+                <b-button @click="deleteCrush(crush.crushId)">Supprimer</b-button>
+              </b-col>
             </b-list-group-item>
           </b-list-group>
 
