@@ -204,7 +204,7 @@ router.post('/get-users', (req, res, next) => {
 
 router.post('/get-all-users', (req, res, next) => {
   db.query(
-    `SELECT username, id FROM users ORDER BY username ASC`,
+    `SELECT username, id, profilimageurl FROM users ORDER BY username ASC`,
     (err, result) => {  
     return res.status(200).send({
       users: result,

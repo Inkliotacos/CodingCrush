@@ -24,12 +24,20 @@
             <tbody>
               <tr class="dropdown-item" v-for="user in resultQuery" :key="user">
                 <p v-if="user.id !== id">
+                  <b-avatar style="margin-right: 3%"
+            :src="user.profilimageurl"
+            size="25px"
+          ></b-avatar>
                 <a @focus="showOptions"
                   class="list-item text-secondary"
                   :href="'/profile/' + user.id"
                   >{{ user.username }}</a
                 ></p>
                 <p v-else>
+                  <b-avatar style="margin-right: 3%"
+            :src="user.profilimageurl"
+            size="25px"
+          ></b-avatar>
                 <a @focus="showOptions"
                   class="list-item text-secondary"
                   :href="'/profile/'"
