@@ -148,7 +148,6 @@ export default {
         }
         const response = await AuthService.getUser(credentials)
         this.questionsUser = await AuthService.getQuestionProfile(credentials)
-        console.log(this.questionsUser)
 
         this.msg = response.msg
         const user = response.user
@@ -182,13 +181,9 @@ export default {
         }
         const response = await AuthService.getCompat(credentials)
         // this.msg = response.msg
-
         const resultCompat = response.compat
-
-        // console.log(response)
         if (resultCompat) {
           this.compat = resultCompat.value
-          // console.log(this.compat)
         } else {
           const credentials1 = {
             idUser: tabId[0]
@@ -203,14 +198,12 @@ export default {
           const user2 = response2.user
 
           const compatibility = CompatibilityService.calculCompat(user1, user2)
-          console.log(compatibility)
           this.compat = compatibility
           const compatCredentials = {
             idFirstUser: tabId[0],
             idSecondUser: tabId[1],
             value: compatibility
           }
-          console.log(compatCredentials)
           await AuthService.updateCompat(compatCredentials)
         }
       } catch (error) {
@@ -225,8 +218,6 @@ export default {
         const responseBis = await AuthService.getUser(credentialsBis)
         const userBis = responseBis.user
         this.crushdispo = userBis.crushdisponible
-        console.log(userBis)
-        console.log(this.crushdispo)
       } catch (error) {
         this.msg = error.response.data.msg
       }
@@ -249,7 +240,6 @@ export default {
           this.getReceiveCrush()
           this.getCrushDispo()
           await AuthService.decrementCrush(credentialsBis)
-          console.log('hehe')
         } else {
           this.msg = 'Vous ne pouvez plus envoyer de crush 😔'
         }
