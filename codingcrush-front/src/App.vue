@@ -8,20 +8,20 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item to="/">Home</b-nav-item>
-            <b-nav-item to="/about" >About</b-nav-item>
-            <b-nav-item to="/login" >login</b-nav-item>
+            <b-nav-item to="/">Accueil</b-nav-item>
+            <b-nav-item to="/about" >A propos</b-nav-item>
+            <b-nav-item to="/login" v-if="!this.$store.getters.isLoggedIn">Se connecter</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto">
+          <b-navbar-nav class="ml-auto" v-if="this.$store.getters.isLoggedIn">
                   <b-nav-item-dropdown right>
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <em>User</em>
+                <em> <b-icon icon="person-fill"></b-icon> Mon compte</em>
               </template>
-              <b-dropdown-item href="/profile">Profile</b-dropdown-item>
-              <b-dropdown-item href="#" @click="logout">Sign Out <b-icon icon="power" aria-hidden="true"></b-icon></b-dropdown-item>
+              <b-dropdown-item href="/profile">Mon profil</b-dropdown-item>
+              <b-dropdown-item href="#" @click="logout"> Se déconnecter <b-icon icon="power" aria-hidden="true"></b-icon></b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>

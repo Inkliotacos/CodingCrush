@@ -1,5 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>À propos</h1>
+    <p>Coding Crush vous permet de déclarer votre flamme aux autres grâce à des Crushs</p>
   </div>
 </template>
