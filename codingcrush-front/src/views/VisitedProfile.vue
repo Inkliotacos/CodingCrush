@@ -165,8 +165,9 @@ export default {
         this.twitterLink = user.twitterlink
         this.steamLink = user.steamlink
         this.descriptionUser = user.descriptionUser
-        this.crushdispo = user.crushdisponible
+
         this.getReceiveCrush()
+        this.getCrushDispo()
       } catch (error) {
         // this.msg = error.response.data.msg
       }
@@ -216,18 +217,44 @@ export default {
         // this.msg = error.response.data.msg
       }
     },
+    async getCrushDispo () {
+      try {
+        const credentialsBis = {
+          idUser: this.idVisitor
+        }
+        const responseBis = await AuthService.getUser(credentialsBis)
+        const userBis = responseBis.user
+        this.crushdispo = userBis.crushdisponible
+        console.log(userBis)
+        console.log(this.crushdispo)
+      } catch (error) {
+        this.msg = error.response.data.msg
+      }
+    },
     async sendCrush () {
       try {
-        const credentials = {
-          idRecipient: this.visitedId,
-          idSender: this.$store.getters.getUser.id,
-          message: this.crushMessage
-        }
-        const response = await AuthService.sendCrush(credentials)
+        if (this.crushdispo > 0) {
+          const credentials = {
+            idRecipient: this.visitedId,
+            idSender: this.$store.getters.getUser.id,
+            message: this.crushMessage
+          }
+          const response = await AuthService.sendCrush(credentials)
+          this.msg = response.msg
 
-        this.msg = response.msg
+          const credentialsBis = {
+            idUser: this.idVisitor,
+            crushNumber: this.crushdispo - 1
+          }
+          this.getReceiveCrush()
+          this.getCrushDispo()
+          await AuthService.decrementCrush(credentialsBis)
+          console.log('hehe')
+        } else {
+          this.msg = 'Vous ne pouvez plus envoyer de crush 😔'
+        }
       } catch (error) {
-        // this.msg = error.response.data.msg
+        this.msg = 'err'
       }
     },
     async getReceiveCrush () {

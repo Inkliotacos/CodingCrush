@@ -444,6 +444,21 @@ router.post('/delete-crush', (req, res, next) => {
       },
 );
 
+router.post('/decrement-crush', (req, res, next) => { 
+  db.query(
+    `UPDATE users SET crushdisponible = ${db.escape(req.body.crushNumber )} WHERE id = ${db.escape(req.body.idUser)} `
+      ),
+      (err, result) => {
+        if (err) {
+          throw err;
+          return res.status(400).send({
+            msg: err
+          });
+        }
+      }
+    }
+  );
+
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
   res.send('This is the secret content. Only logged in users can see that!');
 });
